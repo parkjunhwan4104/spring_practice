@@ -12,34 +12,35 @@
 	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig" > <!-- class 타입의 객체를 id이름으로 쓰겠다는거 -->
 	 
 	 
-	 <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+     <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
 	 
 	 <property name="jdbcUrl" value="jdbc:oracle:thin:@localhost:1521:XE"/>
  
-	<!--   <property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"/>
+ <!--  
+	 <property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"/>
 	 
 	 <property name="jdbcUrl" value="jdbc:log4jdbc:oracle:thin:@localhost:1521:XE"/>
 	-->
 	 <property name="username" value="hr"/>
-	 <property name="password" value="비번"/>
+	 <property name="password" value="wnsghks4104"/>
 	 
 	</bean>
 	
 	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
 	
-		<constructor-arg ref="hikariConfig"/>
-	
+		<constructor-arg ref="hikariConfig"/>  <!-- 생성자로 받은 거 -->
 	</bean>
 	
-	<!--  
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="dataSource" ref="dataSource"></property>
+		<property name="dataSource" ref="dataSource"></property>   <!-- ref이므로 setter를 통해 받는 거 -->
+		<!-- 
+		 Mapper.xml이 어떤 경로에 있던 Mapper.xml을 찾게 해줌 
 		<property name="mapperLocations" value="classpath:mappers/**/*Mapper.xml"></property> 
 		<property name="configLocation" value="classpath:config/config.xml"></property>
-	
+		 -->
+		 
+		 
 	</bean>
 	
 	<mybatis-spring:scan base-package="com.example.e01.mapper"/>	
-
-	-->
 </beans>
