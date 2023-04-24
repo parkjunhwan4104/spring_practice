@@ -11,7 +11,7 @@
 	</appender>
 	
 	<!-- Application Loggers -->
-	<logger name="com.example.e01">
+	<logger name="com.example.ex01">
 		<level value="info" />
 	</logger>
 	
@@ -32,10 +32,23 @@
 		<level value="info" />
 	</logger>
 
+
+	<logger name="jdbc.audit">  <!-- audit인 경우에 경고일 떄만 출력하라는 의미  -->
+		<level value="warn"/>  <!-- 경고일 때만 나오게 하는거 -->
+	</logger>
+	
+	<logger name="jdbc.resultset">
+		<level value="warn"/>
+	</logger>
+	
+	<logger name="jdbc.connection">
+		<level value="warn"/>
+	</logger>
+
+
 	<!-- Root Logger -->
 	<root>
 		<priority value="warn" />
 		<appender-ref ref="console" />
-	</root>
 	
 </log4j:configuration>
