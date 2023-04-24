@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	  
+	  
+	<!-- 우리가 직접 객체화를 하는게 아니라 spring 쪽에서 객체화를 할 수 있게 끔 하는거 -->
+	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig" > <!-- class 타입의 객체를 id이름으로 쓰겠다는거 -->
+	 
+	 <!--  
+     <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+	 
+	 <property name="jdbcUrl" value="jdbc:oracle:thin:@localhost:1521:XE"/>
+ 	 -->
+ 
+	 <property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"/>  
+	 <property name="jdbcUrl" value="jdbc:log4jdbc:oracle:thin:@localhost:1521:XE"/>  <!-- 이렇게 해야 데이터베이스의 result를 가독성 있게 볼 수 있다.(테이블등으로 표현) -->
+	
+	 <property name="username" value="hr"/>
+	 <property name="password" value="wnsghks4104"/>
+	 
+	</bean>
+	
+	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
+	
+		<constructor-arg ref="hikariConfig"/>  <!-- 생성자로 받은 거 -->
+	</bean>
+	
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>   <!-- ref이므로 setter를 통해 받는 거 -->
+	
+		<!--  Mapper.xml이 어떤 경로에 있던 Mapper.xml을 찾게 해줌  -->
+		<property name="mapperLocations" value="classpath:mappers/**/*Mapper.xml"></property> 	<!--  Mapper.xml이 어떤 경로에 있던 Mapper.xml을 찾게 해줌, classpath는 빌드가 되는 경로임  -->
+		<property name="configLocation" value="classpath:config/config.xml"></property>
+		<!-- 위의 2개를 추가하지 않으면 Mapper.xml이 들어있는 폴더의 상위 폴더까지의 이름(com.example.e01.mapper)이 자바코드로 된 Mapper.java가 있는 패키지의 이름과 완전히 같게 설정해야함 -->
+		 
+		 
+	</bean>
+	
+	<mybatis-spring:scan base-package="com.example.ex02.mapper"/>	
+</beans>

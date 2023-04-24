@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.ex02.mapper.TestMapper">
+	
+<!-- 	<select id="getList" resultType="com.example.e01.domain.vo.TestVO">  이처럼 result type이 너무 길어지므로 alias를 주기 위해 config를 사용함 -->
+		
+	<select id="getList" resultType="testVO">	
+		SELECT ID, NAME FROM TBL_TEST	
+	</select>
+</mapper>
