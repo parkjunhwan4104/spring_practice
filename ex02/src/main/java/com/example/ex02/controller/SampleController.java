@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest; 
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -64,5 +66,44 @@ public class SampleController {
 		return "ex03";
 	}
 	
+	@GetMapping("/ex04")
+	// 만약 매개변수가 객체라면 해당 클래스 타입의 앞글자만 소문자로 변경된 값이 
+	// 화면에서 사용할 key값임
+	// ex) 매개변수의 타입이 InforDTO라면, 화면에서 사용시 key값은 inforDTO가 된다.
+	// 만약 KEY값을 수정하거나 매개변수가 많아진다면,
+	// 직접 requestScope에 담아서 전달해야한다.
+	// 이 떄 request 객체를 직접 불러오지 않고 , Model이라는 데이터 전달자를 사용하게 된다.
+	// 하지만 화면쪽에 전달할 데이터가 여러개가 아니라면 @ModleAttribute()를 사용하여 화면에 전달해준다.
+	// @ModleAttribute("화면에서 사용할 key")
+	public String ex04(@ModelAttribute("dto") InforDTO infoDTO) { //ModelAttribute 어노테이션을 이용하면 inforDTO를 dto로 바꿔서 ex04.jsp에서 dto를 사용할 수 있음
+		log.info("-------------------------");
+		log.info("ex04");
+		log.info(infoDTO.toString()); // @Data 어노테이션이 toString()을 재정의함
+		log.info("-------------------------");
+		
+		return "ex04";	
+	}	
+	
+	@GetMapping("/ex05")
+	public String ex05(InforDTO infoDTO, @ModelAttribute("gender") String gender) { //inforDTO는 디폴트라서 자동으로 보내짐
+		log.info(infoDTO.toString());
+		log.info("gender: "+gender);
+		
+		return "ex05";
+	}
+	
+	
+	@GetMapping("/ex06")
+	//Model 객체는 파리미터로 request 객체를 받는다.
+	//따라서 여러개의 데이터를 화면에 전달할 때 addAttribute(key,value)를 이용해 사용함.
+	// 화면에서는 model에 설정한 key로 value를 사용할 수 있다.
+	public String ex06(InforDTO infoDTO, String gender,Model model) { //Model은 request를 받기 위한 것.
+		log.info(infoDTO.toString());
+		log.info("gender: "+gender);
+		
+		model.addAttribute("gender",gender);
+		model.addAttribute("dto",infoDTO);
+		return "ex06";
+	}
 	
 }
