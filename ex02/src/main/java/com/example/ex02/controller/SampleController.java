@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.ex02.domain.vo.InforDTO;
+import com.example.ex02.domain.vo.StudentVO;
 
 import lombok.extern.log4j.Log4j;
 
@@ -104,6 +105,16 @@ public class SampleController {
 		model.addAttribute("gender",gender);
 		model.addAttribute("dto",infoDTO);
 		return "ex06";
+	}
+	
+	@GetMapping("/ex07")
+	// 외부에서 학생의 반호, 국어, 영어, 수학 점수를 모델 객체로 전달받는다.
+	// 파라미터명과 매개변수에 선언된 모델객체의 필드명이 동일하면 자동으로 매핑된다
+	public String ex07(StudentVO studentVO) { 
+		
+		log.info(studentVO.toString());
+		
+		return "ex/ex07";
 	}
 	
 }
