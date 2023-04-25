@@ -32,7 +32,7 @@ public class JDBC_Tests {
 	
 	@Test
 	public void testConnection() {
-		try(Connection connection= DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","d201902695","wnsghks2769")){
+		try(Connection connection= DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","d201902695","")){
 			log.info(connection);
 		}
 		catch(Exception e) {
