@@ -152,12 +152,87 @@ public class WorkController {
 		}
 		discountedPrice=(int)Math.round(product.getProductPrice()*(1-salePercentToDouble));
 		
+		model.addAttribute("num",productNum);
 		model.addAttribute("name",product.getProductName());
 		model.addAttribute("price",discountedPrice);
 		
 		
-		
 		return "market/showChange";
+		
 	}
+	
+	
+	@PostMapping("/usePoint")
+	public String usePoint(String productName,String productNumber, String productPrice,Model model) {
+		model.addAttribute("productName", productName);
+		model.addAttribute("productNumber",productNumber);
+		model.addAttribute("productPrice",productPrice);
+		
+		return "market/usePoint";
+	}
+	
+	@PostMapping("/use")
+	public String use(String saledProductName,String saledProductPrice,String saledProductNumber,String productNum,Integer point,Model model) {
+		
+		Product product=new Product();
+		
+		if(!saledProductNumber.equals(productNum))	{
+							
+			String productName=null;
+			int productPrice=0;
+					
+			switch(productNum) {
+			
+			case "1":
+				productName="오땅";
+				productPrice=4500;			
+				product.setProductName(productName);
+				product.setProductPrice(productPrice);
+				break;
+			case "2":
+				productName="바나나 우유";
+				productPrice=1700;			
+				product.setProductName(productName);
+				product.setProductPrice(productPrice);
+				break;
+			case "3":
+				productName="피자";
+				productPrice=24500;			
+				product.setProductName(productName);
+				product.setProductPrice(productPrice);
+				break;
+			case "4":
+				productName="치킨";
+				productPrice=21500;			
+				product.setProductName(productName);
+				product.setProductPrice(productPrice);
+				break;
+				
+			default:
+				break;
+			}
+		}
+		else {
+			
+			product.setProductName(saledProductName);
+			product.setProductPrice(Integer.parseInt(saledProductPrice));
+			
+		}
+		
+		int cash=product.getProductPrice()-point; //포인트를 뺀 현금으로 결제할 나머지 가격
+		if(point>product.getProductPrice()) {
+			point=product.getProductPrice();
+			cash=0;
+		}
+		
+		
+		model.addAttribute("product", product);
+		model.addAttribute("productNum", productNum);
+		model.addAttribute("point", point);
+		model.addAttribute("cash",cash);
+		
+		return "market/payment";
+	}
+	
 }
 

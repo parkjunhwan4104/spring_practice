@@ -12,5 +12,15 @@
 
   <h1><c:out value="상품 ${name}의 할인된 가격은 ${price}입니다." /></h1>
 
+  <form action="/usePoint" method="post" name="discountForm">
+  	<input type="hidden" name="productName" value="${name}">
+  	<input type="hidden" name="productNumber" value="${num}">
+  	<input type="hidden" name="productPrice" value="${price}">
+  	<input type="submit" value="포인트를 사용하여 상품 구매하러 가기" style="display:block; margin:0 auto;">
+  
+  </form>	
+  
+  <input type="button" onclick="location.href='/sale'" value="상품 및 할인율 변경하기" style="display:block; margin:0 auto;">
+
 </body>
 </html>
