@@ -2,9 +2,14 @@ package com.example.ex02.controller;
 
 import java.util.Calendar;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import com.example.ex02.domain.vo.Product;
 
 import lombok.extern.log4j.Log4j;
 
@@ -12,7 +17,7 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 public class WorkController {
 	
-
+// 직원들의 근무시간을 체크하여 출근과 퇴근 체크
 	@GetMapping("/checkIn")
 	public String checkIn() {
 		
@@ -49,6 +54,110 @@ public class WorkController {
 		}
 		
 		return "work/needToWork";
+	}
+	
+// 상품의 바코드를 입력받고 해당 상품명을 출력한다.	
+	
+	@GetMapping("/market")
+	public String goMarget() {
+		return "market/market";
+	}
+	
+	@PostMapping("/cashier")
+	public String getProduct(String barcode,Model model) {
+		
+		String productName=null;
+		
+		switch(barcode) {
+		
+			case "11":
+				productName="오땅";
+				break;
+				
+			case "22":
+				productName="바나나우유";
+				break;
+				
+			case "33":
+				productName="벌꿀 피자";
+				break;
+				
+			case "44":
+				productName="치킨";
+				break;	
+				
+			default:
+				productName="없는 상품";
+				break;
+		
+		
+		}
+		model.addAttribute("productName",productName);
+		return "market/cashier";
+		
+	}
+	
+
+// 선택한 할인율을 해당 상품에 적용
+// 버튼을 여러 개 만들어서 클리된 할인율만큼의 가격 적용
+	
+	
+	@GetMapping("/sale")
+	public String goChangeSale() {
+		
+		return "market/sale";
+	}
+	
+	
+	@PostMapping("/change")
+	public String change(String productNum,String salePercent,Model model) {
+		
+		double salePercentToDouble=(Integer.parseInt(salePercent))*0.01;
+				
+		Product product=new Product();
+		String productName=null;
+		int productPrice=0;
+		
+		int discountedPrice;
+		
+		switch(productNum) {
+		
+		case "1":
+			productName="오땅";
+			productPrice=4500;			
+			product.setProductName(productName);
+			product.setProductPrice(productPrice);
+			break;
+		case "2":
+			productName="바나나 우유";
+			productPrice=1700;			
+			product.setProductName(productName);
+			product.setProductPrice(productPrice);
+			break;
+		case "3":
+			productName="피자";
+			productPrice=24500;			
+			product.setProductName(productName);
+			product.setProductPrice(productPrice);
+			break;
+		case "4":
+			productName="치킨";
+			productPrice=21500;			
+			product.setProductName(productName);
+			product.setProductPrice(productPrice);
+			break;
+			
+		default:
+			break;
+		}
+		discountedPrice=(int)Math.round(product.getProductPrice()*(1-salePercentToDouble));
+		
+		model.addAttribute("name",product.getProductName());
+		model.addAttribute("price",discountedPrice);
+		
+		
+		
+		return "market/showChange";
 	}
 }
 

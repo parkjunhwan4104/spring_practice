@@ -23,7 +23,7 @@
 	let form=checkInForm;
 	let button = document.querySelector("button[type='button']");
 	button.addEventListener("click", function(){
-		form.setAttribute("action","/leaveWork");
+		form.setAttribute("action","/leaveWork"); //퇴근 버튼을 누르면 /getToWork를 /leaveWork로 바꿔줌
 		form.submit();
 	})
 	//console.log(form.getAttribute("action"));
