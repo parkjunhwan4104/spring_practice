@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.board.mapper.BoardMapper">
+	<select id="getList" resultType="boardVO">
+		SELECT BNO, TITLE, CONTENT, WRITER, REGDATE, UPDATEDATE 
+		FROM TBL_BOARD
+		ORDER BY BNO
+	</select>
+
+
+ <!-- REGDATE와 UPDATEDATE는 디폴트로 SYSDATE 이므로 따로 넣지 않아도됨 -->
+
+	<insert id="insert" parameterType="boardVO">
+	
+		<!-- order=BEFORE을 통해 먼저 SELECT를 실행하고 SEQ_BOARD.NEXTVAL을 BNO에 담아서 그 값을 아래 INSERT의 BNO에 담음 -->
+		<selectKey keyProperty="bno" order="BEFORE" resultType="long">
+			SELECT SEQ_BOARD.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO TBL_BOARD (BNO, TITLE, CONTENT,WRITER)  
+		VALUES(#{bno}, #{title}, #{content}, #{writer})
+	</insert>
+	
+	<select id="getOne" parameterType="long" resultType="boardVO">  <!-- parameterType은 생략해도됨 알아서 매칭해주므로 -->
+		SELECT BNO, TITLE, CONTENT, WRITER, REGDATE, UPDATEDATE 
+		FROM TBL_BOARD WHERE BNO = #{bno}
+		
+	</select>
+	
+	<delete id="delete">
+		DELETE FROM TBL_BOARD WHERE BNO= #{bno}
+	</delete>
+	
+	<update id="update">
+		UPDATE TBL_BOARD
+		SET TITLE = #{title} ,CONTENT= #{content}, UPDATEDATE= SYSDATE
+		WHERE BNO = #{bno}
+	</update>
+	
+	
+
+</mapper>
