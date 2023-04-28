@@ -48,19 +48,33 @@ public class BoardMapperTests {
 	}
 	*/
 	
-	/*
+	
 	@Test
 	public void deleteOneTest() {
-		Long bno=5L;
-		if(boardMapper.getOne(bno)!=null) {
-			log.info("DELETE COUNT :"+boardMapper.delete(bno)); //삭제된 건수 출력
+		Long bno=3L;
+		BoardVO board=boardMapper.getOne(bno);
+		if(board!=null) {
+			log.info("DELETE COUNT :"+boardMapper.delete(board.getBno())); //삭제된 건수 출력
 			return;
 		}
 		
 		log.info("NO BOARD");
 	}
+	
+	
+	/*
+	@Test
+	public void updateTest() {
+		BoardVO boardVO=boardMapper.getOne(1L);
+		if(boardVO!=null) {
+			boardVO.setTitle("수정된 제목");
+			boardVO.setContent("수정된 내용");
+			
+			log.info("UPDATE COUNT: "+boardMapper.update(boardVO));  
+			return;
+		}
+		log.info("No Board");
+	}
 	*/
-	
-	
 	
 }
