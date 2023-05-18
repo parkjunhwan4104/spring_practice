@@ -42,6 +42,7 @@ public class BoardControllerTests {
 	}
 	*/
 	
+	/*
 	@Test
 	public void registerTest() throws Exception {
 		log.info(mockMvc.perform(MockMvcRequestBuilders.post("/board/register")
@@ -51,5 +52,37 @@ public class BoardControllerTests {
 				.param("writer","pjs")
 				
 				).andReturn().getFlashMap());  //getFlashMap: flashAttribute를 썼을 때 flash에 담겨져 있는 데이터를 가져오는거 
+	}
+	*/
+	
+	/*
+	@Test
+	public void readTest() throws Exception {
+		log.info(mockMvc.perform(MockMvcRequestBuilders.get("/board/read")
+			.param("bno","42")
+				
+		).andReturn().getModelAndView().getViewName()); // 	getViewName은 연산이 끝나고 실제로 이동하게 될 페이지의 경로,getModelMap을 쓰면 해당 게시물의 정보를 알 수 있음
+	}
+	*/
+	
+	/*
+	@Test
+	public void removeTests() throws Exception{
+		log.info(mockMvc.perform(MockMvcRequestBuilders.get("/board/remove")
+				.param("bno", "61")
+				
+		).andReturn().getFlashMap());
+	}
+	*/
+	
+	@Test
+	public void modifyTests() throws Exception{
+		log.info(mockMvc.perform(MockMvcRequestBuilders.post("/board/modify")
+			.param("bno","62")
+			.param("title", "엘링홀란드")
+			.param("content","더브라위너")
+			
+		).andReturn().getFlashMap());		
+		
 	}
 }

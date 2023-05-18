@@ -47,5 +47,41 @@ public class BoardController {
 		return "redirect:/board/list";
 	}
 	
+	//게시글 한 개 읽기
+	@GetMapping("/read")
+	public void read(Long bno,Model model) {
+		log.info("/read"+bno);
+		
+		model.addAttribute("board",boardService.get(bno));
+	}
+	
+	// 게시글 삭제
+	@GetMapping("/remove")
+	public String remove(Long bno,RedirectAttributes rttr) {
+		log.info("/remove: "+bno);
+		
+		
+		if(boardService.remove(bno)) {
+			rttr.addFlashAttribute("result","success");
+		}
+		
+		return "redirect:/board/remove";
+	}
+	
+	//게시글 수정
+	@PostMapping("/modify")
+	public String modify(BoardVO boardVO,RedirectAttributes rttr) {
+		
+		log.info("/modify:"+boardVO);
+		
+		if(boardService.modify(boardVO)) {
+			rttr.addFlashAttribute("result","success");
+		}
+		
+		return "redirect:/board/list";
+	}
+	
+	
+	
 	
 }
