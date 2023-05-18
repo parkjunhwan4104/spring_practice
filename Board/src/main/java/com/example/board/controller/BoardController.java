@@ -2,6 +2,8 @@ package com.example.board.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,6 +30,7 @@ public class BoardController {
 	@GetMapping("/list")
 	public void getList(Model model) {
 		log.info("/list");
+		
 		model.addAttribute("boardList",boardService.getList());
 	
 	
@@ -47,10 +50,12 @@ public class BoardController {
 		return "redirect:/board/list";
 	}
 	
-	//게시글 한 개 읽기
-	@GetMapping("/read")
-	public void read(Long bno,Model model) {
-		log.info("/read"+bno);
+	//게시글 조회
+	@GetMapping({"/read","/modify"})
+	public void read(Long bno,HttpServletRequest request,Model model) {
+	    String url=request.getRequestURI();
+	    
+		log.info(url.substring(url.lastIndexOf("/"))+":"+bno);
 		
 		model.addAttribute("board",boardService.get(bno));
 	}
@@ -65,7 +70,7 @@ public class BoardController {
 			rttr.addFlashAttribute("result","success");
 		}
 		
-		return "redirect:/board/remove";
+		return "redirect:/board/list";
 	}
 	
 	//게시글 수정
@@ -80,6 +85,14 @@ public class BoardController {
 		
 		return "redirect:/board/list";
 	}
+	
+	
+	@GetMapping("/register")
+	public void register(){
+		
+		
+	}
+	
 	
 	
 	

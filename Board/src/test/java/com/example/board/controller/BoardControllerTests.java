@@ -29,10 +29,12 @@ public class BoardControllerTests {
 
 	private MockMvc mockMvc; //파라미터 전달하고 get인지 post인지 결정하고 다양한 리턴 값들(경로)을 설정해주는 객체
 
+	
 	@Before
 	public void setUp() {
 		this.mockMvc=MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
 	}
+	
 	
 	/*
 	@Test
@@ -75,6 +77,8 @@ public class BoardControllerTests {
 	}
 	*/
 	
+	/*
+	
 	@Test
 	public void modifyTests() throws Exception{
 		log.info(mockMvc.perform(MockMvcRequestBuilders.post("/board/modify")
@@ -84,5 +88,11 @@ public class BoardControllerTests {
 			
 		).andReturn().getFlashMap());		
 		
+	}
+	*/
+	
+	@Test
+	public void goModifyTest() throws Exception{
+		mockMvc.perform(MockMvcRequestBuilders.get("/board/modify").param("bno","62"));
 	}
 }
