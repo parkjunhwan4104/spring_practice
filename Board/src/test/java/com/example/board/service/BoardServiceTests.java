@@ -1,5 +1,6 @@
 package com.example.board.service;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,14 +21,15 @@ public class BoardServiceTests {
 	@Autowired
 	private BoardService boardService; //boardService를 구현한 객체(BoardServiceImpl)가 빈 컨테이너에 등록이 되어있으면 그 객체가 주입이 됨. 
 	
-	/*
+	
 	@Test
 	public void serviceTest() {
 		log.info(boardService);
 	}
-	*/
+	
 	
 	/*
+	
 	@Test
 	public void registerTest() {
 		BoardVO board=new BoardVO();
@@ -39,12 +41,13 @@ public class BoardServiceTests {
 		
 		log.info("생성된 게시글 번호: "+board.getBno());
 	}
+	
 	*/
 	
 	/*
 	@Test
 	public void getTest() {
-		BoardVO board=boardService.get(5L);
+		BoardVO board=boardService.get(41L);
 		if(board!=null) {
 			log.info(board);
 			return;
@@ -53,10 +56,11 @@ public class BoardServiceTests {
 	}
 	*/
 	
+	
 	/*
-	@Test
+	@Before // 단위 테스트에는 순서없이 진행되므로 before를 통해 먼저 수행되도록 함
 	public void modifyTest() {
-		BoardVO board=boardService.get(0L);
+		BoardVO board=boardService.get(41L);
 		if(board==null) { // 해당 게시판이 없을 경우 널 포인트 에러를 막기 위해
 			log.info("NO BOARD");
 			return;
@@ -73,10 +77,11 @@ public class BoardServiceTests {
 	*/
 	
 	
+	
 	/*
-	@Test
+	@Before
 	public void removeTest() {
-		BoardVO board=boardService.get(4L);
+		BoardVO board=boardService.get(6L);
 		if(board==null) {
 			log.info("NO BOARD");
 			return;
@@ -90,10 +95,14 @@ public class BoardServiceTests {
 	}
 	*/
 	
+	
+	
+	
 	@Test
 	public void getListTest() {
 		boardService.getList().forEach(log::info);
 	}
+	
 	
 	
 	
