@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.board.domain.vo.BoardVO;
+import com.example.board.domain.vo.Criteria;
 import com.example.board.service.BoardService;
 
 import lombok.extern.log4j.Log4j;
@@ -28,10 +29,10 @@ public class BoardController {
 	
 	//게시물 전체 목록
 	@GetMapping("/list")
-	public void getList(Model model) {
+	public void getList(Criteria criteria,Model model) {
 		log.info("/list");
 		
-		model.addAttribute("boardList",boardService.getList());
+		model.addAttribute("boardList",boardService.getList(criteria));
 	
 	
 	}

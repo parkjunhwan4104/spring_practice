@@ -36,13 +36,13 @@ public class BoardControllerTests {
 	}
 	
 	
-	/*
+	
 	@Test
 	public void listTest() throws Exception {
-		log.info(mockMvc.perform(MockMvcRequestBuilders.get("/board/list")).andReturn().getModelAndView().getModelMap());  //MockMvcRequestBuilders:요청을 할 수 있게끔 하는 거, andReturn(): 요청을 하고나서 결과들을 가져오는 객체, getModelAndView(): 현재 모델이란 객체에 뭐가 들어있는지 보여주는거
-	
+		log.info(mockMvc.perform(MockMvcRequestBuilders.get("/board/list").param("pageNum", "1").param("amount", "10")).andReturn().getModelAndView().getModelMap());  //MockMvcRequestBuilders:요청을 할 수 있게끔 하는 거, andReturn(): 요청을 하고나서 결과들을 가져오는 객체, getModelAndView(): 현재 모델이란 객체에 뭐가 들어있는지 보여주는거
+		// board/list의 criteria에 대해 pageNum과 amount를  해당 경로에 해당하는 컨트롤러를 찾아 매개변수로 넘겨줘서 실행함
 	}
-	*/
+	
 	
 	/*
 	@Test
@@ -91,8 +91,10 @@ public class BoardControllerTests {
 	}
 	*/
 	
+	/*
 	@Test
 	public void goModifyTest() throws Exception{
 		mockMvc.perform(MockMvcRequestBuilders.get("/board/modify").param("bno","62"));
 	}
+	*/
 }

@@ -7,6 +7,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.example.board.domain.vo.BoardVO;
+import com.example.board.domain.vo.Criteria;
 
 import lombok.extern.log4j.Log4j;
 
@@ -77,7 +78,7 @@ public class BoardDAOTests {
 	
 	@Test
 	public void getListTest() {
-		boardDAO.getList().forEach(log::info);
+		boardDAO.getList(new Criteria()).forEach(log::info);
 	}
 	
 

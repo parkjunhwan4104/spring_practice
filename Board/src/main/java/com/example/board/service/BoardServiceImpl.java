@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.board.domain.dao.BoardDAO;
 import com.example.board.domain.vo.BoardVO;
+import com.example.board.domain.vo.Criteria;
 
 @Service
 public class BoardServiceImpl implements BoardService { //코드를 재사용하고 결합을 느슨하게 하기위해 인터페이스를 사용함, 재사용하지 않으면 단순히 클래스로만 구현함
@@ -36,9 +37,9 @@ public class BoardServiceImpl implements BoardService { //코드를 재사용하
 	}
 
 	@Override
-	public List<BoardVO> getList() {
+	public List<BoardVO> getList(Criteria criteria) {
 		
-		return boardDAO.getList();
+		return boardDAO.getList(criteria);
 	}
 
 }
