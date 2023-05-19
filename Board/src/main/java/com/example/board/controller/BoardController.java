@@ -57,7 +57,7 @@ public class BoardController {
 	
 	//게시글 조회
 	@GetMapping({"/read","/modify"})
-	public void read(Long bno,HttpServletRequest request,Model model) {
+	public void read(Criteria criteria,Long bno,HttpServletRequest request,Model model) {
 	    String url=request.getRequestURI();
 	    
 		log.info(url.substring(url.lastIndexOf("/"))+":"+bno);
@@ -80,14 +80,14 @@ public class BoardController {
 	
 	//게시글 수정
 	@PostMapping("/modify")
-	public String modify(BoardVO boardVO,RedirectAttributes rttr) {
+	public String modify(Criteria criteria,BoardVO boardVO,RedirectAttributes rttr) {
 		
 		log.info("/modify:"+boardVO);
 		
 		if(boardService.modify(boardVO)) {
 			rttr.addFlashAttribute("result","success");
 		}
-		
+		rttr.addAttribute("pageNum",criteria.getPageNum()); //Get 방식으로 redirect시에 쿼리스트링으로 ?pageNum이 붙도록함 즉 /board/list?pageNum=~ 이런식
 		return "redirect:/board/list";
 	}
 	
