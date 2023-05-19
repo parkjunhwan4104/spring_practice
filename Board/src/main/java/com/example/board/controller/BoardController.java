@@ -14,6 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.board.domain.vo.BoardVO;
 import com.example.board.domain.vo.Criteria;
+import com.example.board.domain.vo.PageDTO;
 import com.example.board.service.BoardService;
 
 import lombok.extern.log4j.Log4j;
@@ -33,7 +34,7 @@ public class BoardController {
 		log.info("/list");
 		
 		model.addAttribute("boardList",boardService.getList(criteria));
-	
+		model.addAttribute("pageDTO",new PageDTO(133,criteria));
 	
 	}
 	
