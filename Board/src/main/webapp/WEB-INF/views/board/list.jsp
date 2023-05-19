@@ -10,6 +10,13 @@
 		<link rel="stylesheet" href="/resources/assets/css/main.css" />
 		<style>
 			body {transform: scale(0.8);}
+			
+			@media(max-width: 918px){
+				body {transform: scale(1); overflow-x:hidden;}
+				.writer {display:none;}
+				.regDate {display:none;}
+				.updateDate {display:none;}
+			}
 		</style>
 	</head>
 	<body class="is-preload">
@@ -47,9 +54,31 @@
 									</tr>
 								</c:forEach>
 							</tbody>
-							<tfoot>
-							</tfoot>
+							
 						</table>
+						<div style="text-align: center;">
+							<c:if test="${pageDTO.prev}">
+								<a href="/board/list?pageNum=${pageDTO.startPage -1}"><code>&lt;</code></a>
+							</c:if>
+							<c:forEach var="num" begin="${pageDTO.startPage}" end="${pageDTO.endPage}"> <!-- jstl에서 1씩 증가 가능 but 1씩 감소는 불가능함 -->
+								<c:choose>
+									<c:when test="${pageDTO.criteria.pageNum ==num}">
+										<code><c:out value="${num}"/></code>
+									</c:when>
+									<c:otherwise>
+										<a href="/board/list?pageNum=${num}"><code><c:out value="${num}"/></code></a>
+									</c:otherwise>
+								</c:choose>
+								
+								
+							</c:forEach>
+							<c:if test="${pageDTO.next}">
+								<a href="/board/list?pageNum=${pageDTO.endPage+1}"><code>&gt;</code></a>
+							</c:if>
+						</div>
+						
+						
+						
 					</div>
 					
 				</div>
@@ -63,4 +92,6 @@
 	<script src="/resources/assets/js/breakpoints.min.js"></script>
 	<script src="/resources/assets/js/util.js"></script>
 	<script src="/resources/assets/js/main.js"></script>
+	
+
 </html>

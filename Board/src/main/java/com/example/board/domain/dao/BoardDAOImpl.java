@@ -41,4 +41,10 @@ public class BoardDAOImpl implements BoardDAO {
 		return boardMapper.getList(criteria);
 	}
 
+	@Override
+	public int getTotal() {
+		
+		return boardMapper.getTotal();
+	}
+
 }

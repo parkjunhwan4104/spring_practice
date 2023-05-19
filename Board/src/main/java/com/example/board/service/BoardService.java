@@ -23,4 +23,7 @@ public interface BoardService {
 	
 	//전체 게시글 가져오기
 	public List<BoardVO> getList(Criteria criteria);
+
+	//전체 게시물 개수
+	public int getTotal();
 }

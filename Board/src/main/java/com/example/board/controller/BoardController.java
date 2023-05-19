@@ -33,8 +33,11 @@ public class BoardController {
 	public void getList(Criteria criteria,Model model) {
 		log.info("/list");
 		
+		PageDTO pageDTO=new PageDTO(boardService.getTotal(),criteria);
+		
 		model.addAttribute("boardList",boardService.getList(criteria));
-		model.addAttribute("pageDTO",new PageDTO(133,criteria));
+		model.addAttribute("pageDTO",pageDTO);
+		
 	
 	}
 	
