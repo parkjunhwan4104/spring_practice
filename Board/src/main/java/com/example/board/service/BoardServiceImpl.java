@@ -43,9 +43,9 @@ public class BoardServiceImpl implements BoardService { //코드를 재사용하
 	}
 
 	@Override
-	public int getTotal() {
+	public int getTotal(Criteria criteria) {
 		
-		return boardDAO.getTotal();
+		return boardDAO.getTotal(criteria);
 	}
 
 }

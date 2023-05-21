@@ -33,7 +33,7 @@ public class BoardController {
 	public void getList(Criteria criteria,Model model) {
 		log.info("/list");
 		
-		PageDTO pageDTO=new PageDTO(boardService.getTotal(),criteria);
+		PageDTO pageDTO=new PageDTO(boardService.getTotal(criteria),criteria);
 		
 		model.addAttribute("boardList",boardService.getList(criteria));
 		model.addAttribute("pageDTO",pageDTO);
@@ -87,8 +87,10 @@ public class BoardController {
 		if(boardService.modify(boardVO)) {
 			rttr.addFlashAttribute("result","success");
 		}
-		rttr.addAttribute("pageNum",criteria.getPageNum()); //Get 방식으로 redirect시에 쿼리스트링으로 ?pageNum이 붙도록함 즉 /board/list?pageNum=~ 이런식
-		return "redirect:/board/list";
+	//	rttr.addAttribute("pageNum",criteria.getPageNum()); //Get 방식으로 redirect시에 쿼리스트링으로 ?pageNum이 붙도록함 즉 /board/list?pageNum=~ 이런식
+	//	rttr.addAttribute("type",criteria.getType());
+	//	rttr.addAttribute("keyword",criteria.getKeyword());
+		return "redirect:/board/list"+ criteria.getParams();
 	}
 	
 	

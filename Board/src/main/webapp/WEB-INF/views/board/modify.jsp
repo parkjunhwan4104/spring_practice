@@ -29,6 +29,8 @@
 						<div class="form">
 							<form action="/board/modify" method="Post">
 								<input type="hidden" name="pageNum" value="${criteria.pageNum}">
+								<input type="hidden" name="type" value="${criteria.type}">
+								<input type="hidden" name="keyword" value="${criteria.keyword}">
 								<div class="fields">
 									<div class="field">
 										<h4>번호</h4>

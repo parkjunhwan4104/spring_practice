@@ -42,9 +42,9 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 
 	@Override
-	public int getTotal() {
+	public int getTotal(Criteria criteria) {
 		
-		return boardMapper.getTotal();
+		return boardMapper.getTotal(criteria);
 	}
 
 }

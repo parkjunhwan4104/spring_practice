@@ -20,5 +20,5 @@ public interface BoardDAO {
 	
 	public List<BoardVO> getList(Criteria criteria);
 
-	public int getTotal();
+	public int getTotal(Criteria criteria);
 }

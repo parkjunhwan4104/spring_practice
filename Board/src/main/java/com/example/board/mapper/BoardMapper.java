@@ -22,5 +22,5 @@ public interface BoardMapper {
 
 		public int update(BoardVO boardVO); //외부에서 전달되는 것은 수정이 완료된 boardVO임
 
-		public int getTotal();
+		public int getTotal(Criteria criteria);
 }

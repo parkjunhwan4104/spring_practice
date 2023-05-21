@@ -34,7 +34,11 @@ public class Criteria {  //페이징을 하기 위해 필요한 클래스
 	public String getParams() { //게시물 상세보기 클릭 시 뒤로 가기를 할 때 그 전에 있던 이전 페이지를 기억해야하므로 쿼리파라미터로 pageNum을 기억하도록 해줌
 		//즉 ?부터 시작해서 ?pageNum=~ 이러한 형식으로 붙여줌
 		
-		UriComponentsBuilder builder=UriComponentsBuilder.fromPath("").queryParam("pageNum",this.pageNum);
+		UriComponentsBuilder builder=UriComponentsBuilder.fromPath("")
+				.queryParam("pageNum",this.pageNum)
+				.queryParam("type",this.type)
+				.queryParam("keyword",this.keyword)
+				;
 		return builder.toUriString();
 	}
 	

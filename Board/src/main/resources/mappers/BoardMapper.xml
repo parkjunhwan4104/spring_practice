@@ -77,7 +77,9 @@
 	<select id="getTotal" resultType="_int">
 		SELECT COUNT(BNO) FROM TBL_BOARD
 		<where>
-		<include refid="search"/>
+			<trim suffixOverrides="AND">
+				<include refid="search"/>
+			</trim>
 		</where>
 	</select>
 	
