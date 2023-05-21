@@ -2,14 +2,36 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.board.mapper.BoardMapper">
 	<select id="getList" resultType="boardVO">
-	  <![CDATA[   
+	   
 	  SELECT BNO,TITLE, CONTENT, WRITER, REGDATE, UPDATEDATE
 	  FROM
 	  (	
 		SELECT /*+ INDEX_DESC(TBL_BOARD, SYS_C0015366)*/
 		ROWNUM RN,BNO, TITLE, CONTENT, WRITER, REGDATE, UPDATEDATE
-		FROM TBL_BOARD WHERE ROWNUM <= #{pageNum} * #{amount}
-	   )	
+		FROM TBL_BOARD WHERE
+		<trim prefix="(" suffix=") AND" prefixOverrides="OR">  <!-- prefixOverrides: 아래에서 OR을 항상 앞에 붙게 하는데 WHERE 바로 다음 OR이 오면 안되므로 TRIM으로 1번더 감싸서 WHERE 바로 앞에 OR이 안오도록 함 -->
+			<foreach itme="type" collection="types">
+				<trim  prefix="OR">  <!-- 아래 3개의 결과들에 각각 OR을 앞에 붙게끔 함 -->
+					<choose>
+						<when test="type== 'T'.toString()">
+							(TITLE LIKE '%' || #{keyword} || '%')
+						</when>
+						<when test="type== 'C'.toString()">
+							(CONTENT LIKE '%' || #{keyword} || '%')
+						</when>
+						<when test="type== 'W'.toString()">
+							(WRITER LIKE '%' || #{keyword} || '%')
+						</when>
+					</choose>
+				</trim>
+			</foreach>
+		</trim>
+		<!-- 위의 3가지 쿼리가 반영이 된 후 AND로 다음 조건을 이어가야 하므로 trim suffix에 AND를 설정하고 AND가 OR보다 우선순위가 높으므로 위의 3가지 경우를 괄호로 묶어서 이 것들을 먼저 처리하고 AND로 마무리하도록 함 -->
+		<![CDATA[  
+		ROWNUM <= #{pageNum} * #{amount}
+		]]>
+	   )
+	   <![CDATA[	
 	   WHERE RN > (#{pageNum} -1) * #{amount}
 	   ]]>
 	</select>
