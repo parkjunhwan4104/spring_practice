@@ -13,6 +13,21 @@
 			.small-width {display:none;}
 			.big-width {display:block;}
 			
+			.table-wrapper {overflow-x :hidden;}
+			
+			select{
+				width:15%;
+				display:inline;
+			}
+			input[name='keyword']{
+				display:inline;
+				width:60%;
+			}
+			.search{
+				width:20%;
+			}
+			
+			
 			@media(max-width: 918px){
 				body {transform: scale(1); overflow-x:hidden;}
 				.writer {display:none;}
@@ -60,6 +75,26 @@
 							</tbody>
 							
 						</table>
+						<form action="/board/list" name="searchForm">
+							<div class="fields" >
+								<div class="field" style="text-align: center;">
+									<select name="type">
+										<option value="">검색 기준</option>
+										<option value="TCW">전체</option>
+										<option value="T">제목</option>
+										<option value="C">내용</option>
+										<option value="W">작성자</option>
+										<option value="TW">제목 또는 작성자</option>
+										<option value="TC">제목 또는 내용</option>
+										
+									</select>
+									
+									<input type="text"	name="keyword">
+									<input type="hidden" name="pageNum" value="${pageDTO.criteria.pageNum}">								</div>
+									<a href="javascript:send()" class="search button primary icon solid fa-search">검색</a>
+								</div>
+							</div>
+						</form>
 						<div style="text-align: center;" class="big-width">
 							<c:if test="${pageDTO.prev}">
 								<a href="/board/list?pageNum=${pageDTO.startPage -1}"><code>&lt;</code></a>
