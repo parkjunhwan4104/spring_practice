@@ -1,4 +1,4 @@
-package com.example.board.mapper;
+package com.example.board.domain.dao;
 
 import java.util.stream.IntStream;
 
@@ -16,23 +16,21 @@ import lombok.extern.log4j.Log4j;
 @RunWith(SpringRunner.class)
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
 @Log4j
-public class ReplyMapperTests {
+public class ReplyDAOTest {
 	
-	private Long[] bnoArr= {3141L, 3134L, 3133L, 3132L,3131L};
-
+	private Long[] bnoArr= {3141L,3134L, 3133L, 3132L,3131L};
+	
 	@Autowired
-	private ReplyMapper replyMapper;
-	
-	/*
+	private ReplyDAO replyDAO;
+
 	@Test
-	public void mapperTest() {
-		log.info(replyMapper);
+	public void daoTest() {
+		log.info(replyDAO);
 	}
-	*/
 	
 	/*
 	@Test
-	public void insertTest() {
+	public void registerTest() {
 		// 5개의 게시글에 2개씩 댓글 달기
 		IntStream.rangeClosed(1, 10).forEach(i->{
 			
@@ -41,56 +39,50 @@ public class ReplyMapperTests {
 			replyVO.setReply("댓글 테스트" +i);
 			replyVO.setReplier("작성자 " + i);
 			
-			replyMapper.insert(replyVO);
+			replyDAO.register(replyVO);
 		});  // 총 10번 반복하여 특정 5개의 게시물에 댓글 2개씩달기
 		
 	}
 	*/
 	
 	/*
-	
 	@Test
-	public void selectTest() {
-		log.info(replyMapper.select(10L));
+	public void findByRNOTest() {
+		log.info(replyDAO.findByRNO(10L));
 	}
 	*/
 	
 	/*
 	@Test
-	public void deleteTest() {
-		log.info(replyMapper.delete(8L));
+	public void removeByRNOTest() {
+		log.info(replyDAO.removeByRNO(28L));
 	}
 	*/
 	
 	/*
 	@Test
-	public void deleteAllTest() {
-		log.info(replyMapper.deleteAll(3134L));
+	public void removeAllByBNOTest() {
+		log.info(replyDAO.removeAllByBNO(3131L));
 	}
 	*/
 	
 	/*
 	@Test
-	public void updateTest() {
-		ReplyVO replyVO=replyMapper.select(1L);
+	public void modifyTest() {
+		ReplyVO replyVO=replyDAO.findByRNO(1L);
 		
 		if(replyVO!=null) {
-			replyVO.setReply("수정된 내용이여~");
+			replyVO.setReply("홀란~ 홀란~");
 		}
 		
 	
-		log.info(replyVO==null? "없는 댓글입니다.": replyMapper.update(replyVO)+"건 수정되었습니다.");
-		
-		
+		log.info(replyVO==null?"읎어요.":replyDAO.modify(replyVO));
 		
 	}
 	*/
-	
 	@Test
-	public void selectAllTest() {
-		replyMapper.selectAll(3141L).forEach(log::info);
+	public void findAllByBNOTest() {
+		replyDAO.findAllByBNO(3132L).forEach(log::info);
 	}
-	
-	
-	
 }
+

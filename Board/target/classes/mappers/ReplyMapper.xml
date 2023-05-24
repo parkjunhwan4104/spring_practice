@@ -26,6 +26,12 @@
 		UPDATE TBL_REPLY SET REPLY= #{reply}, UPDATEDATE= SYSDATE
 		WHERE RNO= #{rno}
 	</update>
+	
+	<select id="selectAll" resultType="replyVO">
+		SELECT RNO, BNO, REPLY, REPLIER, REPLYDATE,UPDATEDATE
+		FROM TBL_REPLY
+		WHERE BNO= #{bno}
+	</select>
 
 </mapper>	
 

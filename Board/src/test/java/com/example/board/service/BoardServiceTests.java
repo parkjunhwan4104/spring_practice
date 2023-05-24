@@ -20,7 +20,7 @@ import lombok.extern.log4j.Log4j;
 public class BoardServiceTests {
 
 	@Autowired
-	private BoardService boardService; //boardService를 구현한 객체(BoardServiceImpl)가 빈 컨테이너에 등록이 되어있으면 그 객체가 주입이 됨. 
+	private BoardService boardService; //boardService를 구현한 객체(BoardServiceImpl)가 Bean 컨테이너에 등록이 되어있으면 그 객체가 주입이 됨. 
 	
 	
 	@Test
