@@ -97,7 +97,6 @@ public class BoardController {
 	@GetMapping("/register")
 	public void register(){
 		//별도로 return을 하지 않으면 해당 url 경로와 일치하는 view를 찾아서 알아서 화면을 보여주므로 return을 하지 않아도 됨
-		
 	}
 	
 	

@@ -48,7 +48,7 @@
 
  <!-- REGDATE와 UPDATEDATE는 디폴트로 SYSDATE 이므로 따로 넣지 않아도됨 -->
 
-	<insert id="insert" parameterType="boardVO">
+	<insert id="insert" parameterType="boardVO">  <!-- 파라미터 타입은 생략가능 -->
 	
 		<!-- order=BEFORE을 통해 먼저 SELECT를 실행하고 SEQ_BOARD.NEXTVAL을 BNO에 담아서 그 값을 아래 INSERT의 BNO에 담음 -->
 		<selectKey keyProperty="bno" order="BEFORE" resultType="long">
