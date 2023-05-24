@@ -47,11 +47,42 @@ public class ReplyMapperTests {
 	}
 	*/
 	
+	/*
+	
 	@Test
 	public void selectTest() {
 		log.info(replyMapper.select(10L));
 	}
+	*/
 	
+	/*
+	@Test
+	public void deleteTest() {
+		log.info(replyMapper.delete(8L));
+	}
+	*/
+	
+	/*
+	@Test
+	public void deleteAllTest() {
+		log.info(replyMapper.deleteAll(3134L));
+	}
+	*/
+	
+	@Test
+	public void updateTest() {
+		ReplyVO replyVO=replyMapper.select(1L);
+		
+		if(replyVO!=null) {
+			replyVO.setReply("수정된 내용이여~");
+		}
+		
+	
+		log.info(replyVO==null? "없는 댓글입니다.": replyMapper.update(replyVO)+"건 수정되었습니다.");
+		
+		
+		
+	}
 	
 	
 	
