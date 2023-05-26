@@ -3,7 +3,9 @@ package com.example.board.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
+import com.example.board.domain.vo.Criteria;
 import com.example.board.domain.vo.ReplyVO;
 
 @Mapper
@@ -18,5 +20,5 @@ public interface ReplyMapper {
 
 	public int deleteAll(Long bno); //게시글의 댓글 모두 삭제
 
-	public List<ReplyVO> selectAll(Long bno);
+	public List<ReplyVO> selectAll(@Param("cri")Criteria criteria,@Param("bno")Long bno);
 }

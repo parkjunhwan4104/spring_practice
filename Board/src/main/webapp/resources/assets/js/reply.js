@@ -27,10 +27,15 @@
  		});
  	}
  	
- 	
+ 	// 목록보기
+ 	// param은 게시글 번호와 요청한 페이지를 받아올 수 있는 객체이다.
  	function getList(param,callback,error){
  		let bno= param.bno;
- 		$.getJSON("/replies/"+ bno +".json",function(list){ /*get방식, 필요한 거 몇 개만 전달해도 정확하게 json을 받아올 수 있게끔 함*/
+ 		let page=param.page || 1; //let variable= a||b; --> a가 값이 없으면 b로 사용된다.
+ 		
+ 		//getJSON()은 빠르고 편하게 요청 후 JSON 데이터를 받아오기 위해 사용한다.
+ 		//.json을 붙인 이유는 XML이 default로 설정되어 있기 때문에 JSON 형식으로 전달받기 위해 사용한다.
+ 		$.getJSON("/replies/"+ bno +"/"+page+".json",function(list){ /* 전송방식은 get방식, 필요한 거 몇 개만 전달해도 정확하게 json을 받아올 수 있게끔 함*/
  			if(callback){
  				callback(list);
  			}

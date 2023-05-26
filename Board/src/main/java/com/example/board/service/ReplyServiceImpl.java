@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.example.board.domain.dao.ReplyDAO;
+import com.example.board.domain.vo.Criteria;
 import com.example.board.domain.vo.ReplyVO;
 import com.example.board.service.ReplyService;
 
@@ -47,9 +48,9 @@ public class ReplyServiceImpl implements ReplyService {
 	}
 
 	@Override
-	public List<ReplyVO> findAllByBNO(Long bno) {
+	public List<ReplyVO> findAllByBNO(Criteria criteria,Long bno) {
 		
-		return replyDAO.findAllByBNO(bno);
+		return replyDAO.findAllByBNO(criteria,bno);
 	}
 
 }

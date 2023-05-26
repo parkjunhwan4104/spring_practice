@@ -83,7 +83,7 @@
 		});
 		*/
 		
-		replyService.getList({bno: bno},function(list){
+		replyService.getList({bno: bno, page:2},function(list){
 			console.log(list);			
 		});
 		

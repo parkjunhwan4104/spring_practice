@@ -9,6 +9,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.example.board.domain.vo.Criteria;
 import com.example.board.domain.vo.ReplyVO;
 
 import lombok.extern.log4j.Log4j;
@@ -82,7 +83,7 @@ public class ReplyDAOTest {
 	*/
 	@Test
 	public void findAllByBNOTest() {
-		replyDAO.findAllByBNO(3132L).forEach(log::info);
+		replyDAO.findAllByBNO(new Criteria(),3141L).forEach(log::info);
 	}
 }
 
