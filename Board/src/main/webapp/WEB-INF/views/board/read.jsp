@@ -66,4 +66,26 @@
 	<script src="/resources/assets/js/breakpoints.min.js"></script>
 	<script src="/resources/assets/js/util.js"></script>
 	<script src="/resources/assets/js/main.js"></script>
+	<script src="/resources/assets/js/reply.js"></script>
+	<script>
+		let bno= "${board.bno}";	
+	
+		console.log("======JS TEST=====");
+		
+		/*
+		replyService.add({
+			bno: bno,
+			reply: "모듈화 테스트",
+			replier:"벤탕쿠르"
+			
+		},function(result){
+			console.log(result);
+		});
+		*/
+		
+		replyService.getList({bno: bno},function(list){
+			console.log(list);			
+		});
+		
+	</script>
 </html>
