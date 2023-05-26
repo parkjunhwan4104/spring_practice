@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -70,6 +71,17 @@ public class ReplyController {
 	}
 	
 	
+	//댓글 수정
+	//PUT: 자원의 전체 수정, 자원 내 모든 필드를 전달해야함
+	//PATCH: 자원의 일부 수정, 수정할 필드만 전송
+	
+	@PutMapping(value="/{bno}/{rno}", consumes="application/json", produces= {MediaType.TEXT_PLAIN_VALUE})
+	public String modify(@PathVariable Long rno,@PathVariable("bno")Long bno, @RequestBody ReplyVO replyVO) {
+		replyVO.setBno(bno);
+		replyVO.setRno(rno);
+		
+		return replyService.modify(replyVO)?"success":"fail";
+	}
 	
 	
 	
