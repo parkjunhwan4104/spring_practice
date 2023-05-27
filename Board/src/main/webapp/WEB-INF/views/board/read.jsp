@@ -10,6 +10,7 @@
 		<link rel="stylesheet" href="/resources/assets/css/main.css" />
 		<style>
 			body {transform: scale(0.8); margin-top: -50px;}
+			div.line{border-bottom: 1px solid #ff8b77;}
 		</style>
 	</head>
 	<body class="is-preload">
@@ -52,6 +53,20 @@
 										<input type="submit" class="button" value="삭제"/>
 									</li>
 								</ul>
+								<ul class="icons">
+									<li>
+										<span class="icon solid fa-envelope"></span>
+										<strong>댓글</strong>
+										
+									</li>
+									
+									<!-- 
+									
+									 -->
+								</ul>
+								<ul class="replies">
+									
+								</ul>
 							</form>
 						</div>
 					</div>
@@ -69,7 +84,33 @@
 	<script src="/resources/assets/js/reply.js"></script>
 	<script>
 		let bno= "${board.bno}";	
-	
+		let page= 1;
+		
+		showList(page);
+		
+		const repliesUL= $("ul.replies");
+		
+		function showList(page){
+			replyService.getList({
+				bno: bno,
+				page: page
+			},function(list){
+				let str="";
+				
+				for(let i=0; i<list.length; i++){
+					str+=`<li style="display: block;">`;
+					str+=`<strong>`+list[i].replier +`</strong>`;
+					str+=`<p>`+list[i].reply +`</p>`;
+					str+=`<strong style="display:block; text-align: right">댓글 작성 시간</strong>`;
+					str+=`<div class="line"></div>`;
+					str+=`</li>`;
+							
+				}
+				
+				repliesUL.html(str);
+				
+			});
+		}
 		
 		/*
 		replyService.add({
