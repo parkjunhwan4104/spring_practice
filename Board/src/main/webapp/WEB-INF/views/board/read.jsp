@@ -117,7 +117,7 @@
 					date=check? list[i].replyDate: list[i].updateDate; //댓글을 등록할 경우엔 댓글등록시간이, 원래 댓글을 수정할 경우 수정한 시간이 나오도록 함
 				
 					//아래 생성한 것들이 DOM으로 추가한 태그들
-					str+=`<li style="display: block; ">`;
+					str+=`<li id=`+list[i].rno+` style="display: block; ">`;
 					str+=`<div style="display:flex; justify-content:space-between" >`;
 					str+=`<strong style="display:block;">`+list[i].replier +`</strong>`;
 					str+=`<div>`;
@@ -171,10 +171,18 @@
 		//이런 경우에는 기존에 있는 태그에 이벤트를 걸어주고,
 		//새롭게 추가될 태그의 선택자를 ON("이벤트명","자식요소 선택자",callback)메소드에 같이 전달한다.
 		//기존에 있었던 태그의 이벤트가 새롭게 추가된 자식요소에 위임된다.
+		let check=false;  //하나 수정할때 다른 것들이 수정 안되도록 막는 변수
+		
 		$("ul.replies").on("click","a.modify-ready",function(e){  //ul.replies의 이벤트를 a.modify-ready로 위임
 			e.preventDefault();
+			if(check){
+				alert("이미 수정중인 댓글이 있습니다.");
+				return;
+			}
 			let finish=$("a.modify-finish");
 			let rno=$(this).attr("href");
+			const p=$("li#"+rno).find("p."+rno); //li 태그중에 id를 rno로 갖고있는 애의 자식중 p인걸 찾기
+						
 			$(this).hide();
 			for(let i=0;i<finish.length;i++){
 				if(finish[i].getAttribute("href")==rno){
@@ -182,7 +190,31 @@
 					break;
 				}
 			}
+			
+			p.html("<textarea class="+rno+" style='resize:none;'>"+p.text()+"</textarea>")
+			check=true;
+		});
 		
+		$("ul.replies").on("click","a.modify-finish",function(e){
+			e.preventDefault();
+			let rno=$(this).attr("href");
+			const p=$("li#"+rno).find("p."+rno);
+			
+			
+			replyService.modify({
+				reply:$("textarea."+rno).val(),
+				rno:$(this).attr("href")
+			},function(){
+				
+				p.html($("textarea."+rno).val());
+				
+				$(this).hide();
+				$(this).prev().show(); //현재 요소 바로 앞에 있는 요소를 보여주는거( 수정완료에서 수정으로 바꾸기 위해)
+				showList(page);
+				
+				check=false;
+			});
+			
 		});
 		
 		/*
