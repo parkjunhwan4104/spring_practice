@@ -78,9 +78,8 @@
 										<a href="javascript:void(0)" class="button primary small cancel">취소</a>
 									</div>
 								</div>
-								<ul class="replies">
-									
-								</ul>
+								<ul class="replies"></ul>
+								
 							</form>
 						</div>
 					</div>
@@ -116,10 +115,18 @@
 				for(let i=0; i<list.length; i++){
 					check=list[i].replyDate==list[i].updateDate;
 					date=check? list[i].replyDate: list[i].updateDate; //댓글을 등록할 경우엔 댓글등록시간이, 원래 댓글을 수정할 경우 수정한 시간이 나오도록 함
-														
-					str+=`<li style="display: block;">`;
-					str+=`<strong>`+list[i].replier +`</strong>`;
-					str+=`<p>`+list[i].reply +`</p>`;
+				
+					//아래 생성한 것들이 DOM으로 추가한 태그들
+					str+=`<li style="display: block; ">`;
+					str+=`<div style="display:flex; justify-content:space-between" >`;
+					str+=`<strong style="display:block;">`+list[i].replier +`</strong>`;
+					str+=`<div>`;
+					str+=`<a href=`+list[i].rno+` class="modify-ready">수정</a>`;
+					str+=`<a href=`+list[i].rno+` class="modify-finish" style="display:none">수정완료</a>`;
+					str+=`&nbsp;&nbsp;&nbsp;&nbsp;<a href=`+list[i].rno+` class="remove">삭제</a>`;
+					str+=`</div>`;
+					str+=`</div>`;
+					str+=`<p class=`+list[i].rno+`>`+list[i].reply +`</p>`;
 					str+=`<strong style="display:block; text-align: right">`+(check?"":"*")+replyService.displayTime(date)+`</strong>`;
 					str+=`<div class="line"></div>`;
 					str+=`</li>`;
@@ -157,6 +164,25 @@
 			e.preventDefault();
 			$("div.register-form").hide();
 			$("a.register").show();
+		});
+		
+		//이벤트 위임
+		//DOM으로 추가한 태그들은 이벤트가 발생하지 않는다.
+		//이런 경우에는 기존에 있는 태그에 이벤트를 걸어주고,
+		//새롭게 추가될 태그의 선택자를 ON("이벤트명","자식요소 선택자",callback)메소드에 같이 전달한다.
+		//기존에 있었던 태그의 이벤트가 새롭게 추가된 자식요소에 위임된다.
+		$("ul.replies").on("click","a.modify-ready",function(e){  //ul.replies의 이벤트를 a.modify-ready로 위임
+			e.preventDefault();
+			let finish=$("a.modify-finish");
+			let rno=$(this).attr("href");
+			$(this).hide();
+			for(let i=0;i<finish.length;i++){
+				if(finish[i].getAttribute("href")==rno){
+					$(finish[i]).show();
+					break;
+				}
+			}
+		
 		});
 		
 		/*
