@@ -11,6 +11,7 @@
 		<style>
 			body {transform: scale(0.8); margin-top: -50px;}
 			div.line{border-bottom: 1px solid #ff8b77;}
+			h4.reply-h4{margin-bottom:0px;}
 		</style>
 	</head>
 	<body class="is-preload">
@@ -53,17 +54,30 @@
 										<input type="submit" class="button" value="삭제"/>
 									</li>
 								</ul>
-								<ul class="icons">
+								<ul class="icons" style="margin:0;">
 									<li>
 										<span class="icon solid fa-envelope"></span>
 										<strong>댓글</strong>
 										
 									</li>
 									
-									<!-- 
-									
-									 -->
+													 -->
 								</ul>
+								<a class="button primary small register" style="display:block; margin-bottom: 30px;">댓글 등록</a>
+								<div class="fields register-form" style="display:none;">
+									<div class="field">
+										<h4 class="reply-h4">작성자</h4>
+										<input name="replier" placeholder="Replier" type="text"> 
+									</div>
+									<div class="field">
+										<h4 class="reply-h4">댓글</h4>
+										<textarea name="reply" rows="6" placeholder="Reply" style="resize:none;"></textarea>
+									</div> 
+									<div class="field registerButtons" style="text-align:right">
+										<a href="javascript:void(0)" class="button primary small finish">등록</a>
+										<a href="javascript:void(0)" class="button primary small cancel">취소</a>
+									</div>
+								</div>
 								<ul class="replies">
 									
 								</ul>
@@ -116,6 +130,34 @@
 				
 			});
 		}
+		
+		
+		$("a.finish").on("click",function(e){
+			e.preventDefault();
+			replyService.add({
+				bno: bno,
+				reply:$("textarea[name='reply']").val(),
+				replier: $("input[name='replier']").val()
+				
+			},function(){
+				$("textarea[name='reply']").val("");
+				$("input[name='replier']").val("");
+				showList(page);
+			});
+		});
+		
+		
+		$("a.register").on("click",function(e){
+			e.preventDefault();
+			$("div.register-form").show();
+			$(this).hide();
+		});
+		
+		$("a.cancel").on("click",function(e){
+			e.preventDefault();
+			$("div.register-form").hide();
+			$("a.register").show();
+		});
 		
 		/*
 		replyService.add({
