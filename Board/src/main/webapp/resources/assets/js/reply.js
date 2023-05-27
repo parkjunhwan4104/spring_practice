@@ -87,8 +87,33 @@
  			}
  		});
  	}
- 
- 	return {add: add, getList:getList, remove:remove, modify: modify, getReply: getReply}  /* {key, value}*/
+ 	
+ 	//댓글 작성 시간
+ 	//작성 시간을 기준으로 24시간 이후는 년-월-일
+ 	// 24시간 이전은 시:분으로 만든다.
+ 	function displayTime(timeValue){
+ 		let today=new Date();
+ 		let date=new Date(timeValue);
+ 		let gap= today.getTime()- date.getTime();
+ 		
+ 		if(gap< 1000 * 60 *60* 24){ //24시간보다 gap이 작으면
+ 			let hh=date.getHours();
+ 			let mm=date.getMinutes();
+ 		
+ 			return [hh<10?"0"+hh :hh ,mm<10?"0"+mm :mm].join(':'); //hh:mm 형태로 출력하기 위함
+ 		}
+ 		else{ //24시간보다 gap이 클 때
+ 			let yy=date.getFullYear();
+ 			let mm=date.getMonth()+1; //월은 0부터 시작하므로 +1을 해줘야 1월부터 시작
+ 			let dd=date.getDate();
+ 			
+ 			return [yy, mm<10?"0"+mm:mm, dd<10?"0"+dd: dd].join('-');
+ 		}
+ 		
+ 	}
+ 	
+ 	
+ 	return {add: add, getList:getList, remove:remove, modify: modify, getReply: getReply, displayTime: displayTime}  /* {key, value}*/
  
  })();  
  /*선언하자마자 바로 사용하므로 메소드 이름이 필요가 없음 (일회성) */

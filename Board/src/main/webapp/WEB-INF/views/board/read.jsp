@@ -96,12 +96,17 @@
 				page: page
 			},function(list){
 				let str="";
+				let date="";
+				let check=false;
 				
 				for(let i=0; i<list.length; i++){
+					check=list[i].replyDate==list[i].updateDate;
+					date=check? list[i].replyDate: list[i].updateDate; //댓글을 등록할 경우엔 댓글등록시간이, 원래 댓글을 수정할 경우 수정한 시간이 나오도록 함
+														
 					str+=`<li style="display: block;">`;
 					str+=`<strong>`+list[i].replier +`</strong>`;
 					str+=`<p>`+list[i].reply +`</p>`;
-					str+=`<strong style="display:block; text-align: right">댓글 작성 시간</strong>`;
+					str+=`<strong style="display:block; text-align: right">`+(check?"":"*")+replyService.displayTime(date)+`</strong>`;
 					str+=`<div class="line"></div>`;
 					str+=`</li>`;
 							
