@@ -70,7 +70,6 @@
 	<script>
 		let bno= "${board.bno}";	
 	
-		console.log("======JS TEST=====");
 		
 		/*
 		replyService.add({
@@ -83,9 +82,37 @@
 		});
 		*/
 		
+		
+		/*
 		replyService.getList({bno: bno, page:2},function(list){
 			console.log(list);			
 		});
+		*/
+		
+		/*
+		replyService.remove(101,function(result){
+				alert(result);
+		});
+		
+		*/
+		
+		/*
+		replyService.modify({
+			reply:"댓글 수정 테스트여",
+			rno: 102
+		},function(result){
+			alert(result);
+			
+			
+		});
+		*/
+		
+		/*
+		replyService.getReply(102,function(reply){
+				console.log(reply);
+		});
+		*/
+		
 		
 	</script>
 </html>

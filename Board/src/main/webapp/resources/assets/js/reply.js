@@ -45,8 +45,50 @@
  			}
  		});
  	}
+ 	
+ 	
+ 	//댓글 삭제
+ 	function remove(rno,callback){
+ 		$.ajax({
+ 			url:"/replies/"+rno,
+ 			type: "delete",
+ 			success: function(result){
+ 				if(callback){
+ 					callback(result);
+ 				}
+ 			}
+ 		
+ 		
+ 		});
+ 	}
+ 	
+ 	//댓글 수정
+ 	function modify(reply,callback){
+ 		$.ajax({
+ 			url:"/replies/"+reply.rno,
+ 			type: "put",
+ 			data: JSON.stringify(reply),
+ 			contentType: "application/json; charset: utf-8",
+ 			success: function(result){
+ 				if(callback){
+ 					callback(result);
+ 				}
+ 			}
+ 			
+ 		});
+ 	
+ 	}
+ 	
+ 	//댓글 1개 조회
+ 	function getReply(rno,callback){
+ 		$.getJSON("/replies/"+rno,function(reply){
+ 			if(callback){
+ 				callback(reply);
+ 			}
+ 		});
+ 	}
  
- 	return {add: add, getList:getList}  /* {key, value}*/
+ 	return {add: add, getList:getList, remove:remove, modify: modify, getReply: getReply}  /* {key, value}*/
  
  })();  
  /*선언하자마자 바로 사용하므로 메소드 이름이 필요가 없음 (일회성) */
