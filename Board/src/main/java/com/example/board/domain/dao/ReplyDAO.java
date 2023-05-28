@@ -42,6 +42,10 @@ public class ReplyDAO {
 		return replyMapper.selectAll(criteria,bno);
 		
 	}
+	
+	public int getTotal(Long bno) {
+		return replyMapper.getTotal(bno);
+	}
 
 	
 	

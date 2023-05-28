@@ -42,6 +42,12 @@
 	   	WHERE RN > (#{cri.pageNum} -1) * #{cri.amount}
 	   	]]> 	
 	</select>
+	
+	
+	<select id="getTotal" resultType="_int">
+		SELECT COUNT(RNO) FROM TBL_REPLY
+		WHERE BNO= #{bno}
+	</select>
 
 </mapper>	
 

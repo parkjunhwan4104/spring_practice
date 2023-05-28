@@ -21,4 +21,6 @@ public interface ReplyMapper {
 	public int deleteAll(Long bno); //게시글의 댓글 모두 삭제
 
 	public List<ReplyVO> selectAll(@Param("cri")Criteria criteria,@Param("bno")Long bno);
+
+	public int getTotal(Long bno);
 }

@@ -53,4 +53,11 @@ public class ReplyServiceImpl implements ReplyService {
 		return replyDAO.findAllByBNO(criteria,bno);
 	}
 
+	@Override
+	public int getTotal(Long bno) {
+		return replyDAO.getTotal(bno);
+	}
+	
+	
+
 }

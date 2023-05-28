@@ -25,4 +25,5 @@ public interface ReplyService {
 	
 	public List<ReplyVO> findAllByBNO(Criteria criteria,Long bno);
 
+	public int getTotal(Long bno);
 }

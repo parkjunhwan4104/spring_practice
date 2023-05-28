@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.board.domain.vo.Criteria;
+import com.example.board.domain.vo.ReplyDTO;
 import com.example.board.domain.vo.ReplyVO;
 import com.example.board.service.ReplyService;
 
@@ -50,9 +51,9 @@ public class ReplyController {
 	
 	//json타입으로 전송하기 위해서 MediaType.APPLICATION_JSON_UTF8_VALUE을 추가하고 url에서 조회할떄는 /replies/{bno}.json으로 조회하면 됨
 	@GetMapping(value="/{bno}/{page}",produces= {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE})  //replyService.findAllByBNO(bno)이 값을 xml방식으로 전송하겠다는 거
-	public ResponseEntity<List<ReplyVO>> getList(@PathVariable("bno") Long bno,@PathVariable int page) {  //데이터가 HEADER에 담겨서 오면 @RequestBody를 사용하고 URL에 담겨서 오면 @PathVariable 사용
+	public ResponseEntity<ReplyDTO> getList(@PathVariable("bno") Long bno,@PathVariable int page) {  //데이터가 HEADER에 담겨서 오면 @RequestBody를 사용하고 URL에 담겨서 오면 @PathVariable 사용
 		log.info("getList......:"+bno);
-		return new ResponseEntity<>(replyService.findAllByBNO(new Criteria(page,10),bno),HttpStatus.OK);  
+		return new ResponseEntity<>(new ReplyDTO(replyService.findAllByBNO(new Criteria(page,10),bno),replyService.getTotal(bno)),HttpStatus.OK);  
 	}
 	
 	
