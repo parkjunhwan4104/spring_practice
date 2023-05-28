@@ -175,18 +175,29 @@
 		
 		$("ul.replies").on("click","a.modify-ready",function(e){  //ul.replies의 이벤트를 a.modify-ready로 위임
 			e.preventDefault();
+			
+			
+					
 			if(check){
 				alert("이미 수정중인 댓글이 있습니다.");
 				return;
 			}
 			let finish=$("a.modify-finish");
 			let rno=$(this).attr("href");
+		//	console.log($("textarea."+rno).val());  //수정을 위해 입력한 것 까지 포함
+		//	console.log($("textarea."+rno).text()); //이미 적혀있었던 것만 포함
 			const p=$("li#"+rno).find("p."+rno); //li 태그중에 id를 rno로 갖고있는 애의 자식중 p인걸 찾기
-						
+				
+			const remove=$("a.remove");
+			
+			
 			$(this).hide();
 			for(let i=0;i<finish.length;i++){
 				if(finish[i].getAttribute("href")==rno){
 					$(finish[i]).show();
+					$(remove[i]).attr("class","modify-cancel");
+					$(remove[i]).text("취소");
+					
 					break;
 				}
 			}
@@ -214,6 +225,35 @@
 				
 				check=false;
 			});
+			
+		});
+		
+		$("ul.replies").on("click","a.modify-cancel",function(e){
+			
+			e.preventDefault();
+			
+			let rno=$(this).attr("href");
+			const p=$("li#"+rno).find("p."+rno);
+			
+			p.html($("textarea."+rno).text());
+			
+			$(this).attr("class","remove");
+			$(this).text("삭제");
+			
+			$(this).prev().hide();
+			$(this).prev().prev().show();
+			check=false;
+		});
+		
+		$("ul.replies").on("click","a.remove",function(e){
+			e.preventDefault();
+			
+			if(confirm("정말 삭제하시겠습니까?")){
+				replyService.remove($(this).attr("href"),function(){
+					showList(page);	
+				});	
+			}
+			
 			
 		});
 		
