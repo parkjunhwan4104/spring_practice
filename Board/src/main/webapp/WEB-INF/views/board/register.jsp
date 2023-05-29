@@ -40,7 +40,7 @@
 					<h3><a href="/board/list" class="button small">목록 보기</a></h3>
 					<div class="content">
 						<div class="form">
-							<form method="post" action="/board/register" id="registForm">
+							<form method="post" action="/board/register" id="registForm" enctype="multipart/form-data">
 								<div class="fields">
 									<div class="field">
 										<h4>제목</h4>
@@ -93,16 +93,41 @@
 				var $inputFile=$(this);
 				var files=$inputFile[0].files;
 				console.log(files);
+				
+				
+				
+				for(let i=0;i<files.length;i++){
+					
+					if(!checkExtension(files[i].name,files[i].size)){
+								
+						return false;
+					}
+					formData.append("multipartFiles",files[i]);
+					
+				}
+				
+				$.ajax({
+					url:"/upload",
+					processData:false,
+					contentType:false,
+					data: formData,
+					type:"post",
+					dataType:"json",
+					success: function(result){
+						console.log(result);
+					}
+					
+				});
 			});
 			
 			
 			function checkExtension(fileName, fileSize){
-				if(regex.text(fileName)){ //잘못된 파일
+				if(regex.test(fileName)){ //잘못된 파일
 					alter("업로드할 수 없는 파일의 형식입니다.");
 					return false;
 				}
 				
-				if(fileSize>=maxsize){
+				if(fileSize>=maxSize){
 					alert("파일 사이즈 초과");
 					return false;
 				}

@@ -13,10 +13,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.FileCopyUtils;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -36,13 +39,13 @@ public class FileController {
 		log.info("upload/////////");
 		
 		List<FileVO> files=new ArrayList<FileVO>();
-		String uploadDirectory="F:\\upload";
+		String uploadDirectory="C:\\upload";
 		String uploadDatePath=getDirectoryForm();
 		
 		File uploadPath=new File(uploadDirectory,uploadDatePath); //2개를 string을 합치도록함
 		log.info("uploadPath:"+uploadPath);
 		
-		if(uploadPath.exists()) {
+		if(!uploadPath.exists()) { //업로드path가 존재하지 않을 떄, 즉 처음 디렉토리 생성
 			uploadPath.mkdirs();  //년월일 폴더 3개를 만드므로 mkdirs를 사용
 		}
 		
@@ -99,6 +102,27 @@ public class FileController {
 	private boolean checkImageType(File file) throws IOException {
 		String contentType=Files.probeContentType(file.toPath()); //파일의 종류에 대한 정보를 담고 있는 것이 probeCOntentType임
 		return contentType.startsWith("image");	
+	}
+	
+	@GetMapping("/display")  //우리가 원하는 파일을 불러올수 있도록 하는 메소드
+	@ResponseBody
+	public ResponseEntity<byte[]> display(String fileName){
+		log.info("fileName:"+fileName);
+		
+		File file=new File("C:\\upload\\"+fileName);
+		log.info("file"+file);
+		
+		ResponseEntity<byte[]> result=null;
+		
+		try {
+			HttpHeaders header=new HttpHeaders();
+			header.add("Content-Type",Files.probeContentType(file.toPath()));
+			result=new ResponseEntity<byte[]>(FileCopyUtils.copyToByteArray(file),header,HttpStatus.OK);
+		}catch(IOException e) {
+			e.printStackTrace();
+		}
+		
+		return result;
 	}
 	
 }
