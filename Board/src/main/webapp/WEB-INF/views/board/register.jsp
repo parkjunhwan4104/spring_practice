@@ -83,10 +83,44 @@
 	<script src="/resources/assets/js/main.js"></script>
 	<script>
 		$(document).ready(function(e){
-			var uploadResult=$(".uploadResult.ul");
+			var uploadResult=$(".uploadResult ul");
 			var contextPath="${pageContext.request.contextPath}"; //Ajax 사용하기 위해 있어야함
 			var regex=new RegExp("(.*/)\.(exe|sh|zip|alz)$");
 			var maxSize= 1024*1024*20; //20mb
+			
+			function showUploadResult(files){
+				
+				var str="";
+				
+				$(files).each(function(i,file){
+					
+					if(!file.fileType){  //일반파일
+										
+						str += "<li>";
+						str += "<div>";
+						str += "<a href=>";
+						str += "<img src='/resources/images/attach.png' width='100'>";
+						str += "</a>";
+						str += "</div>";
+						str += "</li>";
+					}
+					else{ //이미지 파일		
+						var fileName=file.uploadPath+"/t_"+file.uuid+"_"+file.fileName
+						
+						str += "<li>";
+						str += "<div>";
+						str += "<a href=>";
+						str += "<img src='/display?fileName="+fileName+"' width='100'>";
+						str += "</a>";
+						str += "</div>";
+						str += "</li>";
+						
+					}
+				});
+				uploadResult.append(str);
+				
+			}
+			
 			
 			$("input[type='file']").change(function(e){
 				var formData=new FormData();
@@ -115,6 +149,7 @@
 					dataType:"json",
 					success: function(result){
 						console.log(result);
+						showUploadResult(result);
 					}
 					
 				});

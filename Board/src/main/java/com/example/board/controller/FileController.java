@@ -39,7 +39,7 @@ public class FileController {
 		log.info("upload/////////");
 		
 		List<FileVO> files=new ArrayList<FileVO>();
-		String uploadDirectory="C:\\upload";
+		String uploadDirectory="C:/upload";
 		String uploadDatePath=getDirectoryForm();
 		
 		File uploadPath=new File(uploadDirectory,uploadDatePath); //2개를 string을 합치도록함
@@ -94,7 +94,7 @@ public class FileController {
 	}
 	
 	private String getDirectoryForm() { //현재 시간을 기준으로 년월일을 경로의 포맷으로 만들어 리턴
-		SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy\\MM\\dd");
+		SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy/MM/dd");
 		Date today=new Date();
 		return simpleDateFormat.format(today);
 	}
@@ -109,16 +109,17 @@ public class FileController {
 	public ResponseEntity<byte[]> display(String fileName){
 		log.info("fileName:"+fileName);
 		
-		File file=new File("C:\\upload\\"+fileName);
-		log.info("file"+file);
+		File file=new File("C:/upload/"+fileName);
+		log.info("file: "+file);
 		
 		ResponseEntity<byte[]> result=null;
-		
+		HttpHeaders header = new HttpHeaders();
 		try {
-			HttpHeaders header=new HttpHeaders();
+			
 			header.add("Content-Type",Files.probeContentType(file.toPath()));
 			result=new ResponseEntity<byte[]>(FileCopyUtils.copyToByteArray(file),header,HttpStatus.OK);
 		}catch(IOException e) {
+			log.info("초비상!!!!!!!!!!!!!!!!!!!");
 			e.printStackTrace();
 		}
 		

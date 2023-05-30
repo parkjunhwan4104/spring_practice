@@ -40,18 +40,18 @@ public class BoardMapperTests {
 	}
 	*/
 	
-	/*
+	
 	@Test
 	public void getOneTest() {
-		BoardVO boardVo=boardMapper.getOne(5L); //5L은 5의 Long 타입
+		BoardVO boardVo=boardMapper.getOne(3141L); //5L은 5의 Long 타입
 		log.info(boardVo);
 	}
-	*/
 	
 	
+	/*
 	@Test
 	public void deleteOneTest() {
-		Long bno=3L;
+		Long bno=3141L;
 		BoardVO board=boardMapper.getOne(bno);
 		if(board!=null) {
 			log.info("DELETE COUNT :"+boardMapper.delete(board.getBno())); //삭제된 건수 출력
@@ -60,7 +60,7 @@ public class BoardMapperTests {
 		
 		log.info("NO BOARD");
 	}
-	
+	*/
 	
 	/*
 	@Test
