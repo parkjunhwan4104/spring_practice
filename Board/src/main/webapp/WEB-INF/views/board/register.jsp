@@ -96,7 +96,7 @@
 					
 					if(!file.fileType){  //일반파일
 										
-						str += "<li>";
+						str += "<li data-filename='" + file.fileName + "' data-uuid='" + file.uuid + "' data-uploadpath='" + file.uploadPath + "' data-filetype='" + file.fileType + "'>";
 						str += "<div>";				
 						str += "<img src='/resources/images/attach.png' width='100'>  <br>";						
 						str += "</div>";
@@ -106,7 +106,7 @@
 					else{ //이미지 파일		
 						var fileName=file.uploadPath+"/t_"+file.uuid+"_"+file.fileName
 						
-						str += "<li>";
+						str += "<li data-filename='" + file.fileName + "' data-uuid='" + file.uuid + "' data-uploadpath='" + file.uploadPath + "' data-filetype='" + file.fileType + "'>";
 						str += "<div>";
 						str += "<img src='/display?fileName="+fileName+"' width='100'> <br>";						
 						str += "<span>"+file.fileName+"</span>";

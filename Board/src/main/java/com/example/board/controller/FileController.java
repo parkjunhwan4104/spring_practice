@@ -58,10 +58,11 @@ public class FileController {
 			
 			String originalFileName=multipartFile.getOriginalFilename();
 			String fileName=null;
-					
+			
+			
 			UUID uuid=UUID.randomUUID();
 			fileName=uuid.toString()+"_"+originalFileName;
-			
+				
 			fileVO.setFileName(originalFileName);
 			fileVO.setUuid(uuid.toString());
 			fileVO.setUploadPath(uploadDatePath);
