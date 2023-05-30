@@ -65,4 +65,10 @@ public class BoardServiceImpl implements BoardService { //코드를 재사용하
 		return boardDAO.getTotal(criteria);
 	}
 
+	@Override
+	public List<FileVO> getFiles(Long bno) {
+		// TODO Auto-generated method stub
+		return boardDAO.getFiles(bno);
+	}
+
 }

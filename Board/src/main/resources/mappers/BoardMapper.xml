@@ -84,5 +84,8 @@
 	</select>
 	
 	
-
+	<select id="getFiles" resultType="fileVO">
+		SELECT UUID, UPLOADPATH, FILENAME, FILETYPE FROM TBL_FILE
+		WHERE BNO= #{bno}
+	</select>
 </mapper>

@@ -12,6 +12,19 @@
 			body {transform: scale(0.8); margin-top: -50px;}
 			div.line{border-bottom: 1px solid #ff8b77;}
 			h4.reply-h4{margin-bottom:0px;}
+			
+			.uploadResult{
+				width:100%;
+			}
+			
+			.uploadResult ul{
+				display:flex;
+				justify-content:center;
+			}
+			
+			.uploadResult ul li{
+				list-style:none;
+			}
 		</style>
 	</head>
 	<body class="is-preload">
@@ -46,6 +59,12 @@
 									<div class="field">
 										<h4>작성자</h4>
 										<input type="text" name="writer" value="${board.writer}" readonly>
+									</div>
+									<div class="field"> <!-- 업로드될때의 화면(썸네일) -->
+										<h4>첨부파일</h4>
+										<div class="uploadResult">
+											<ul></ul>
+										</div>
 									</div>
 								</div>
 								<ul class="actions special">
@@ -348,6 +367,47 @@
 		});
 		*/
 		
+		//첨부파일
+		$(document).ready(function(e){
+			var $uploadResult=$(".uploadResult ul");
+				
+			$.getJSON("files",{bno: "${board.bno}"},function(files){
+				
+				showUploadResult(files);
+			});
+			
+			function showUploadResult(files){
+				
+				var str="";
+				
+				$(files).each(function(i,file){
+					
+					if(!file.fileType){  //일반파일
+										
+						str += "<li data-filename='" + file.fileName + "' data-uuid='" + file.uuid + "' data-uploadpath='" + file.uploadPath + "' data-filetype='" + file.fileType + "'>";
+						str += "<div>";				
+						str += "<img src='/resources/images/attach.png' width='100'>  <br>";						
+						str += "</div>";
+						str += "<span>"+file.fileName+"</span>";
+						str += "</li>";
+					}
+					else{ //이미지 파일		
+						var fileName=file.uploadPath+"/t_"+file.uuid+"_"+file.fileName
+						
+						str += "<li data-filename='" + file.fileName + "' data-uuid='" + file.uuid + "' data-uploadpath='" + file.uploadPath + "' data-filetype='" + file.fileType + "'>";
+						str += "<div>";
+						str += "<img src='/display?fileName="+fileName+"' width='100'> <br>";						
+						str += "<span>"+file.fileName+"</span>";
+						str += "</div>";
+						str += "</li>";
+						
+					}
+				});
+				 $uploadResult.append(str);
+				
+			}
+			
+		});
 		
 	</script>
 </html>

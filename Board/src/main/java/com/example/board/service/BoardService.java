@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.example.board.domain.vo.BoardDTO;
 import com.example.board.domain.vo.BoardVO;
 import com.example.board.domain.vo.Criteria;
+import com.example.board.domain.vo.FileVO;
 
 @Service
 public interface BoardService { //service의 역할: 여러개의 dao를 한 번에 묶어서 사용할 수 있음
@@ -27,4 +28,6 @@ public interface BoardService { //service의 역할: 여러개의 dao를 한 번
 
 	//전체 게시물 개수
 	public int getTotal(Criteria criteria);
-}
+	
+	public List<FileVO> getFiles(Long bno);
+ }

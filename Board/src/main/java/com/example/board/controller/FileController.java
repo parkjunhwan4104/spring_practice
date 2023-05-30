@@ -13,6 +13,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -125,6 +127,21 @@ public class FileController {
 		}
 		
 		return result;
+	}
+	
+	@GetMapping(value="/download",produces=MediaType.APPLICATION_OCTET_STREAM_VALUE)
+	@ResponseBody
+	public ResponseEntity<Resource> download(String fileName) {
+		Resource resource=new FileSystemResource("C:/upload/"+fileName);
+		if(!resource.exists()) { //경로가 존재하지 않으면
+			return new ResponseEntity<Resource>(HttpStatus.NOT_FOUND);
+		}
+		else {
+			HttpHeaders header=new HttpHeaders();
+			String resourceName=resource.getFilename();
+			resourceName=resourceName.substring(resourceName.indexOf("_")+1);  //uuid 제거
+			
+		}
 	}
 	
 }

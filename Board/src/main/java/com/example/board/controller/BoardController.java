@@ -1,20 +1,24 @@
 package com.example.board.controller;
 
-import java.util.List;
+import java.util.List; 
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.board.domain.vo.BoardDTO;
 import com.example.board.domain.vo.BoardVO;
 import com.example.board.domain.vo.Criteria;
+import com.example.board.domain.vo.FileVO;
 import com.example.board.domain.vo.PageDTO;
 import com.example.board.service.BoardService;
 
@@ -98,6 +102,13 @@ public class BoardController {
 	@GetMapping("/register")
 	public void register(){
 		//별도로 return을 하지 않으면 해당 url 경로와 일치하는 view를 찾아서 알아서 화면을 보여주므로 return을 하지 않아도 됨
+	}
+	
+	//첨부파일 전체 목록
+	@GetMapping(value="/files",produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@ResponseBody
+	public List<FileVO> getFiles(Long bno){
+		return boardService.getFiles(bno);
 	}
 	
 	

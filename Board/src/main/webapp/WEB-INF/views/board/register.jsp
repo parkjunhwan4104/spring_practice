@@ -16,7 +16,7 @@
 			
 			.uploadResult ul{
 				display:flex;
-				jusify-content:center;
+				justify-content:center;
 			}
 			
 			.uploadResult ul li{
@@ -84,7 +84,7 @@
 	<script>
 		$(document).ready(function(e){
 			var $uploadResult=$(".uploadResult ul");
-			var contextPath="${pageContext.request.contextPath}"; //Ajax 사용하기 위해 있어야함
+			var contextPath="${pageContext.request.contextPath}";
 			var regex=new RegExp("(.*/)\.(exe|sh|zip|alz)$");
 			var maxSize= 1024*1024*20; //20mb
 			
@@ -98,7 +98,7 @@
 										
 						str += "<li data-filename='" + file.fileName + "' data-uuid='" + file.uuid + "' data-uploadpath='" + file.uploadPath + "' data-filetype='" + file.fileType + "'>";
 						str += "<div>";				
-						str += "<img src='/resources/images/attach.png' width='100'>  <br>";						
+						str += "<img src='/resources/images/attach.png' width='100'>";						
 						str += "</div>";
 						str += "<span>"+file.fileName+"</span>";
 						str += "</li>";
@@ -108,7 +108,7 @@
 						
 						str += "<li data-filename='" + file.fileName + "' data-uuid='" + file.uuid + "' data-uploadpath='" + file.uploadPath + "' data-filetype='" + file.fileType + "'>";
 						str += "<div>";
-						str += "<img src='/display?fileName="+fileName+"' width='100'> <br>";						
+						str += "<img src='/display?fileName="+fileName+"' width='100'>";						
 						str += "<span>"+file.fileName+"</span>";
 						str += "</div>";
 						str += "</li>";
