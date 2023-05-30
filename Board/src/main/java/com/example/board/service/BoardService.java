@@ -4,13 +4,14 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.example.board.domain.vo.BoardDTO;
 import com.example.board.domain.vo.BoardVO;
 import com.example.board.domain.vo.Criteria;
 
 @Service
 public interface BoardService { //service의 역할: 여러개의 dao를 한 번에 묶어서 사용할 수 있음
 	//게시글 등록
-	public void register(BoardVO boardVO);
+	public void register(BoardDTO boardDTO);
 	
 	//특정 게시글 가져오기
 	public BoardVO get(Long bno);

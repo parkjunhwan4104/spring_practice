@@ -40,7 +40,7 @@
 					<h3><a href="/board/list" class="button small">목록 보기</a></h3>
 					<div class="content">
 						<div class="form">
-							<form method="post" action="/board/register" id="registForm" enctype="multipart/form-data">
+							<form method="post" action="/board/register" id="registForm" name="registForm" enctype="multipart/form-data">
 								<div class="fields">
 									<div class="field">
 										<h4>제목</h4>
@@ -83,7 +83,7 @@
 	<script src="/resources/assets/js/main.js"></script>
 	<script>
 		$(document).ready(function(e){
-			var uploadResult=$(".uploadResult ul");
+			var $uploadResult=$(".uploadResult ul");
 			var contextPath="${pageContext.request.contextPath}"; //Ajax 사용하기 위해 있어야함
 			var regex=new RegExp("(.*/)\.(exe|sh|zip|alz)$");
 			var maxSize= 1024*1024*20; //20mb
@@ -97,11 +97,10 @@
 					if(!file.fileType){  //일반파일
 										
 						str += "<li>";
-						str += "<div>";
-						str += "<a href=>";
-						str += "<img src='/resources/images/attach.png' width='100'>";
-						str += "</a>";
+						str += "<div>";				
+						str += "<img src='/resources/images/attach.png' width='100'>  <br>";						
 						str += "</div>";
+						str += "<span>"+file.fileName+"</span>";
 						str += "</li>";
 					}
 					else{ //이미지 파일		
@@ -109,20 +108,21 @@
 						
 						str += "<li>";
 						str += "<div>";
-						str += "<a href=>";
-						str += "<img src='/display?fileName="+fileName+"' width='100'>";
-						str += "</a>";
+						str += "<img src='/display?fileName="+fileName+"' width='100'> <br>";						
+						str += "<span>"+file.fileName+"</span>";
 						str += "</div>";
 						str += "</li>";
 						
 					}
 				});
-				uploadResult.append(str);
+				 $uploadResult.append(str);
 				
 			}
 			
 			
 			$("input[type='file']").change(function(e){
+				
+				$(".uploadResult ul li").remove();
 				var formData=new FormData();
 				var $inputFile=$(this);
 				var files=$inputFile[0].files;
@@ -154,6 +154,20 @@
 					
 				});
 			});
+			
+			$("input[type='submit']").on("click",function(e){
+				e.preventDefault();
+				var $form = $(document.registForm);
+				var str = "";
+				
+				$(".uploadResult ul li").each(function(i, li){
+					str += "<input type='hidden' name='files[" + i + "].uuid' value='" + $(li).data("uuid") +"'>";
+					str += "<input type='hidden' name='files[" + i + "].uploadPath' value='" + $(li).data("uploadpath") +"'>";
+					str += "<input type='hidden' name='files[" + i + "].fileName' value='" + $(li).data("filename") +"'>";
+					str += "<input type='hidden' name='files[" + i + "].fileType' value='" + $(li).data("filetype") +"'>";
+				});
+				$form.append(str).submit();
+			})
 			
 			
 			function checkExtension(fileName, fileSize){

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.board.domain.dao.BoardDAO;
+import com.example.board.domain.vo.BoardDTO;
 import com.example.board.domain.vo.BoardVO;
 import com.example.board.domain.vo.Criteria;
 
@@ -16,8 +17,8 @@ public class BoardServiceImpl implements BoardService { //코드를 재사용하
 	BoardDAO boardDAO;
 	
 	@Override
-	public void register(BoardVO boardVO) {
-		boardDAO.register(boardVO);
+	public void register(BoardDTO boardDTO) {
+		boardDAO.register(boardDTO);
 	}
 
 	@Override
