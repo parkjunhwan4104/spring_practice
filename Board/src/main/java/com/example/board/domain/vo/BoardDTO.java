@@ -14,4 +14,6 @@ public class BoardDTO {
 	private String regDate;
 	private String updateDate;
 	private List<FileVO> files; 
+
+
 }

@@ -1,6 +1,7 @@
 package com.example.board.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,15 +26,17 @@ public class BoardServiceImpl implements BoardService { //코드를 재사용하
 	@Override
 	public void register(BoardDTO boardDTO) {
 		boardDAO.register(boardDTO);
-		
-		for(FileVO file: boardDTO.getFiles()) {
-			FileDTO fileDTO=new FileDTO();
-			fileDTO.setUuid(file.getUuid());
-			fileDTO.setUploadPath(file.getUploadPath());
-			fileDTO.setFileName(file.getFileName());
-			fileDTO.setFileType(file.isFileType());
-			fileDTO.setBno(boardDTO.getBno());  //이미 위에서 board.register을 할때 insert 쿼리가 진행되는데 이 때 insert안에 select가 먼저 실행되어 bno가 이미 만들어진후 게시글이 추가되므로 bno가 존재하게됨
-			fileDAO.register(fileDTO);
+				
+		if(boardDTO.getFiles().size()!=0) {
+			for(FileVO file: boardDTO.getFiles()) {
+				FileDTO fileDTO=new FileDTO();
+				fileDTO.setUuid(file.getUuid());
+				fileDTO.setUploadPath(file.getUploadPath());
+				fileDTO.setFileName(file.getFileName());
+				fileDTO.setFileType(file.isFileType());
+				fileDTO.setBno(boardDTO.getBno());  //이미 위에서 board.register을 할때 insert 쿼리가 진행되는데 이 때 insert안에 select가 먼저 실행되어 bno가 이미 만들어진후 게시글이 추가되므로 bno가 존재하게됨
+				fileDAO.register(fileDTO);
+			}
 		}
 	}
 

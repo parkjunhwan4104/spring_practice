@@ -1,6 +1,7 @@
 package com.example.board.domain.dao;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
 

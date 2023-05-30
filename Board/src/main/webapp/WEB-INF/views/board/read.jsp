@@ -42,7 +42,7 @@
 					<h3><a href="/board/list${criteria.params}" class="button small">목록 보기</a></h3>
 					<div class="content">
 						<div class="form">
-							<form action="/board/remove">
+							<form action="/board/remove" name="deleteForm">
 								<div class="fields">
 									<div class="field">
 										<h4>번호</h4>
@@ -381,24 +381,28 @@
 				var str="";
 				
 				$(files).each(function(i,file){
+					var thumbfileName=file.uploadPath+"/t_"+file.uuid+"_"+file.fileName
+					var fileName=file.uploadPath+"/"+file.uuid+"_"+file.fileName
 					
 					if(!file.fileType){  //일반파일
 										
 						str += "<li data-filename='" + file.fileName + "' data-uuid='" + file.uuid + "' data-uploadpath='" + file.uploadPath + "' data-filetype='" + file.fileType + "'>";
-						str += "<div>";				
-						str += "<img src='/resources/images/attach.png' width='100'>  <br>";						
+						str += "<div>";		
+						str += "<a href='/download?fileName="+fileName+"'>"
+						str += "<img src='/resources/images/attach.png' width='100'>";						
+						str += "</a>";
 						str += "</div>";
 						str += "<span>"+file.fileName+"</span>";
 						str += "</li>";
 					}
 					else{ //이미지 파일		
-						var fileName=file.uploadPath+"/t_"+file.uuid+"_"+file.fileName
-						
 						str += "<li data-filename='" + file.fileName + "' data-uuid='" + file.uuid + "' data-uploadpath='" + file.uploadPath + "' data-filetype='" + file.fileType + "'>";
 						str += "<div>";
-						str += "<img src='/display?fileName="+fileName+"' width='100'> <br>";						
-						str += "<span>"+file.fileName+"</span>";
+						str += "<a href='/download?fileName="+fileName+"'>"
+						str += "<img src='/display?fileName="+thumbfileName+"' width='100'>";						
+						str += "</a>";
 						str += "</div>";
+						str += "<span>"+file.fileName+"</span>";	
 						str += "</li>";
 						
 					}
@@ -407,6 +411,22 @@
 				
 			}
 			
+		});
+		
+		$("input[type='submit']").on("click", function(e){
+			e.preventDefault();
+			$(".uploadResult ul li").each(function(i, li){
+				var fileName = encodeURIComponent($(li).data("filetype") ? $(li).data("uploadpath") + "/t_" + $(li).data("uuid") + "_" + $(li).data("filename") : 
+						$(li).data("uploadpath") + "/" + $(li).data("uuid") + "_" + $(li).data("filename"));
+				$.ajax({
+					url: "/deleteFile",
+					type: "post",
+					data: {fileName: fileName, fileType: $(li).data("filetype")},
+					success: function(){
+						document.deleteForm.submit();
+					}
+				});
+			})
 		});
 		
 	</script>

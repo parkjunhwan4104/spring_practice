@@ -1,6 +1,7 @@
 package com.example.board.domain.dao;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -51,7 +52,7 @@ public class BoardDAOImpl implements BoardDAO {
 
 	@Override
 	public List<FileVO> getFiles(Long bno) {
-		
+				
 		return boardMapper.getFiles(bno);
 	}
 	
