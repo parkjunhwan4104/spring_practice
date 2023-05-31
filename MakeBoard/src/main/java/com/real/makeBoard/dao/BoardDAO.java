@@ -2,15 +2,20 @@ package com.real.makeBoard.dao;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.real.makeBoard.mapper.BoardMapper;
 import com.real.makeBoard.vo.BoardVO;
 
 @Repository
 public class BoardDAO {
 	
-	public void add() {
-		
+	@Autowired
+	private BoardMapper boardMapper;
+	
+	public void add(BoardVO board) {
+		boardMapper.add(board);
 		
 	}
 	
@@ -22,12 +27,14 @@ public class BoardDAO {
 		
 	}
 	
-	public BoardVO getOne(Long bno) {
+	public void getOne(Long bno) {
 		
 	}
 	
+	
 	public List<BoardVO> getList(){
-			
+			return boardMapper.getList();
 	}
+	
 
 }

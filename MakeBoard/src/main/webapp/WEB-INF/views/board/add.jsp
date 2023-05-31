@@ -14,19 +14,21 @@
 	<form action="/board/add" method="POST">
 		<div>
 			<h4>제목</h4>
-			<input name="title" required>
+			<input name="title" placeholder="Title" type="text" required>
 		</div>
 		<div>
 			<h4>내용</h4>
-			<textarea name="content" required></textarea>
+			<textarea name="content" rows="6" placeholder="Content" style="resize:none" required></textarea>
 		</div>
 		<div>
 			<h4>작성자</h4>
-			<input name="writer">
+			<input name="writer" placeholder="Writer" type="text">
 		</div>
 		
 		<button class="submit">등록</button>
-		<button class="cancel">취소</button>
+		
+		<a href="/board/list">취소</a>
+		
 	
 	</form>
 

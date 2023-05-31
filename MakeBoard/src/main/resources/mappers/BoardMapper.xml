@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.real.makeBoard.mapper.BoardMapper">
+	
+	<insert id="add" parameterType="boardVO">
+		INSERT INTO BOARD(TITLE,CONTENT,WRITER)
+		VALUES(#{title},#{content},#{writer})
+	</insert>	
+
+	<select id="getList" resultType="boardVO">
+		SELECT BNO,TITLE,CONTENT,WRITER,REGDATE,UPDATEDATE FROM BOARD
+		
+	</select>
+
+
+
+
+</mapper>

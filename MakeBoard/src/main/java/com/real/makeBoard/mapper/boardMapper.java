@@ -7,15 +7,15 @@ import org.apache.ibatis.annotations.Mapper;
 import com.real.makeBoard.vo.BoardVO;
 
 @Mapper
-public interface boardMapper {
+public interface BoardMapper {
 	
-	public void add();
+	public void add(BoardVO boardVO);
 	
 	public void modify(Long bno);
 	
 	public void delete(Long bno);
 	
-	public BoardVO getOne(Long bno);
+	public void getOne(Long bno);
 	
 	public List<BoardVO> getList();
 	
