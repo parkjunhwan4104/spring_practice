@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.real.makeBoard.Service.BoardService;
 import com.real.makeBoard.vo.BoardVO;
+import com.real.makeBoard.vo.Criteria;
+import com.real.makeBoard.vo.PageDTO;
 
 @Controller
 @RequestMapping("/board/")
@@ -32,11 +34,20 @@ public class BoardController {
 	}
 	
 	@GetMapping("/list")
-	public String showList(Model model) {
+	public String showList(Criteria criteria,Model model) {
 		
-		List<BoardVO> boardList=boardService.getList();
+		List<BoardVO> boardList=boardService.getList(criteria);
+		
+		PageDTO pageDTO=new PageDTO(criteria,boardService.getTotalNum());
 		
 		model.addAttribute("boardList", boardList);
+		model.addAttribute("pageDTO",pageDTO);
+		
+		System.out.println("-----------start:"+pageDTO.getStartPage());
+		System.out.println("-----------end:"+pageDTO.getEndPage());
+		
+		System.out.println("---cri-----"+criteria.getCurrentPageNum());
+		System.out.println("---cria-----"+criteria.getAmount());
 		
 		return "board/list";
 	}
@@ -45,6 +56,10 @@ public class BoardController {
 	public String showDetail(@PathVariable("bno") Long bno,Model model) {
 		
 		BoardVO boardVO=boardService.getOne(bno);
+		
+		if(boardVO==null) {
+			return "error/error";
+		}
 		
 		model.addAttribute("boardVO", boardVO);
 		
@@ -57,6 +72,10 @@ public class BoardController {
 		
 		BoardVO boardVO=boardService.getOne(bno);
 		
+		if(boardVO==null) {
+			return "error/error";
+		}
+		
 		model.addAttribute("boardVO",boardVO);
 		
 		return "board/modify";
@@ -67,6 +86,20 @@ public class BoardController {
 		boardService.modify(boardVO);
 		
 		return "redirect:/board/detail/"+boardVO.getBno();
+	}
+	
+	@GetMapping("/delete")
+	public String doDelete(Long bno) {
+		
+		BoardVO boardVO=boardService.getOne(bno);
+		
+		if(boardVO==null) {
+			return "error/error";
+		}
+		
+		boardService.delete(bno);
+		
+		return "redirect:/board/list";
 	}
 	
 	

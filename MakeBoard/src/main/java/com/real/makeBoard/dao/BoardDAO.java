@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.real.makeBoard.mapper.BoardMapper;
 import com.real.makeBoard.vo.BoardVO;
+import com.real.makeBoard.vo.Criteria;
 
 @Repository
 public class BoardDAO {
@@ -24,7 +25,7 @@ public class BoardDAO {
 	}
 	
 	public void delete(Long bno){
-		
+		boardMapper.delete(bno);
 	}
 	
 	public BoardVO getOne(Long bno) {
@@ -33,8 +34,12 @@ public class BoardDAO {
 	}
 	
 	
-	public List<BoardVO> getList(){
-			return boardMapper.getList();
+	public List<BoardVO> getList(Criteria criteria){
+			return boardMapper.getList(criteria);
+	}
+	
+	public int getTotalNum() {
+		return boardMapper.getTotalNum();
 	}
 	
 

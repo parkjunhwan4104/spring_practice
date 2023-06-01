@@ -8,8 +8,18 @@
 	</insert>	
 
 	<select id="getList" resultType="boardVO">
-		SELECT BNO,TITLE,CONTENT,WRITER,REGDATE,UPDATEDATE FROM BOARD
-		
+		SELECT BNO,TITLE,CONTENT,WRITER,REGDATE,UPDATEDATE 
+		FROM
+		(SELECT /*+ INDEX_DESC(BOARD, SYS_C0015385)*/
+			ROWNUM RN,BNO, TITLE, CONTENT, WRITER, REGDATE, UPDATEDATE
+		FROM BOARD 
+		<![CDATA[
+		WHERE ROWNUM <= #{currentPageNum} * #{amount} 
+		]]>
+		)
+		<![CDATA[
+		WHERE RN > (#{currentPageNum}-1)*#{amount}
+		]]>
 	</select>
 	
 	<select id="getOne" resultType="boardVO">
@@ -23,6 +33,14 @@
 		WHERE BNO= #{bno}
 	</update>
 
+	<delete id="delete">
+		DELETE FROM BOARD
+		WHERE BNO= #{bno}
+	</delete>
+	
+	<select id="getTotalNum" resultType="_int">
+		SELECT COUNT(BNO) FROM BOARD
+	</select>
 
 
 

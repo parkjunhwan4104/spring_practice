@@ -76,6 +76,31 @@
 					</tbody>
 					
 				</table>
+				
+				<div style="text-align: center;" class="big-width">
+					<c:if test="${pageDTO.prev}">
+						<a href="/board/list?currentPageNum=${pageDTO.startPage -1}"><code>&lt;</code></a>
+					</c:if>
+					<c:forEach var="num" begin="${pageDTO.startPage}" end="${pageDTO.endPage}"> <!-- jstl에서 1씩 증가 가능 but 1씩 감소는 불가능함 -->
+						<c:choose>
+							<c:when test="${pageDTO.criteria.currentPageNum ==num}">
+								<code><c:out value="${num}"/></code>
+							</c:when>
+							<c:otherwise>
+								<a href="/board/list?currentPageNum=${num}"><code><c:out value="${num}"/></code></a>
+							</c:otherwise>
+						</c:choose>
+						
+						
+					</c:forEach>
+					<c:if test="${pageDTO.next}">
+						<a href="/board/list?currentPageNum=${pageDTO.endPage+1}"><code>&gt;</code></a>
+					</c:if>
+				</div>
+						
+				
+		</div>
+				
 
 </body>
 	<script src="/resources/assets/js/jquery.min.js"></script>

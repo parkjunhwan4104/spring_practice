@@ -94,7 +94,21 @@ public class BoardControllerTest {
 	}
 	*/
 	
+	/*
+	@Test
+	public void deleteTest() {
+		try {
+			log.info(mockMvc.perform(MockMvcRequestBuilders.get("/board/delete")
+					.param("bno", "3")
+					).andReturn().getModelAndView().getModelMap());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	*/
 	
+
 	
 	
 	

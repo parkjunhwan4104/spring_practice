@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.real.makeBoard.dao.BoardDAO;
 import com.real.makeBoard.vo.BoardVO;
+import com.real.makeBoard.vo.Criteria;
 
 @Service
 public class BoardService {
@@ -25,7 +26,7 @@ public class BoardService {
 	}
 	
 	public void delete(Long bno) {
-		
+		boardDAO.delete(bno);
 	}
 	
 	public BoardVO getOne(Long bno) {
@@ -33,8 +34,12 @@ public class BoardService {
 	}
 	
 	
-	public List<BoardVO> getList(){
-		return boardDAO.getList();
+	public List<BoardVO> getList(Criteria criteria){
+		return boardDAO.getList(criteria);
+	}
+	
+	public int getTotalNum() {
+		return boardDAO.getTotalNum();
 	}
 	
 }

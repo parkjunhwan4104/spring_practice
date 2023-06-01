@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.real.makeBoard.vo.BoardVO;
+import com.real.makeBoard.vo.Criteria;
 
 @Mapper
 public interface BoardMapper {
@@ -17,6 +18,8 @@ public interface BoardMapper {
 	
 	public BoardVO getOne(Long bno);
 	
-	public List<BoardVO> getList();
+	public List<BoardVO> getList(Criteria criteria);
+	
+	public int getTotalNum();
 	
 }

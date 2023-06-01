@@ -36,7 +36,7 @@
 					<a href="/board/modify?bno=${boardVO.bno}">수정</a>
 				</button>
 				<button class="submit">
-					<a href="/board/modify/${boardVO.bno}">삭제</a>
+					<a href="/board/delete?bno=${boardVO.bno}">삭제</a>
 				</button>
 					
 				

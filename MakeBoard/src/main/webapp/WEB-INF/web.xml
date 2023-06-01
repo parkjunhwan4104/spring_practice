@@ -46,5 +46,22 @@
 		<filter-name>encodingFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
+	
+	
+	<!-- 모든 경로를 다 커버하기위해 해당 에러코드가 발생했을 때 예외처리를 할 수 있도록 함  -->
+	<error-page>
+		<error-code>404</error-code>
+		<location>/error</location>
+	</error-page>
+
+	<error-page>
+		<error-code>405</error-code>  <!-- 메소드 방식이 잘못되었을 때 405(post인데 get으로 했을 경우) -->
+		<location>/error</location>
+	</error-page>
+
+	<error-page>
+		<error-code>500</error-code>
+		<location>/error</location>
+	</error-page>
 
 </web-app>
