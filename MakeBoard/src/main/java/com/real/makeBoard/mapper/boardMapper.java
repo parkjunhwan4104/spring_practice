@@ -11,11 +11,11 @@ public interface BoardMapper {
 	
 	public void add(BoardVO boardVO);
 	
-	public void modify(Long bno);
+	public void modify(BoardVO boardVO);
 	
 	public void delete(Long bno);
 	
-	public void getOne(Long bno);
+	public BoardVO getOne(Long bno);
 	
 	public List<BoardVO> getList();
 	

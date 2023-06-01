@@ -19,7 +19,8 @@ public class BoardService {
 		
 	}
 	
-	public void modify(Long bno) {
+	public void modify(BoardVO boardVO) {
+		boardDAO.modify(boardVO);
 		
 	}
 	
@@ -27,8 +28,8 @@ public class BoardService {
 		
 	}
 	
-	public void getOne(Long bno) {
-		
+	public BoardVO getOne(Long bno) {
+		return boardDAO.getOne(bno);
 	}
 	
 	

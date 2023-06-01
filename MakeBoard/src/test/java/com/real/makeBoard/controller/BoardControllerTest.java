@@ -51,6 +51,7 @@ public class BoardControllerTest {
 	}
 	*/
 	
+	/*
 	@Test
 	public void getListTest() {
 		try {
@@ -64,5 +65,37 @@ public class BoardControllerTest {
 		}
 		
 	}
+	*/
+	
+	/*
+	@Test
+	public void getOneTest() {
+		try {
+			log.info(mockMvc.perform(MockMvcRequestBuilders.get("/board/detail/4")).andReturn().getModelAndView().getModelMap());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	*/
+	/*
+	@Test
+	public void modifyTest() {
+		try {
+			log.info(mockMvc.perform(MockMvcRequestBuilders.post("/board/modify")
+					.param("title", "맨시티")
+					.param("content", "홀란드")
+									
+					).andReturn().getModelAndView().getModelMap());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	*/
+	
+	
+	
+	
 	
 }

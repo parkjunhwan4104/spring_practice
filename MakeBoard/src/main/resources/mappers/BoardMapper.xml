@@ -11,6 +11,17 @@
 		SELECT BNO,TITLE,CONTENT,WRITER,REGDATE,UPDATEDATE FROM BOARD
 		
 	</select>
+	
+	<select id="getOne" resultType="boardVO">
+		SELECT * FROM BOARD
+		WHERE BNO= #{bno}
+	</select>
+	
+	<update id="modify">
+		UPDATE BOARD 
+		SET TITLE= #{title}, CONTENT= #{content}, UPDATEDATE= SYSDATE
+		WHERE BNO= #{bno}
+	</update>
 
 
 

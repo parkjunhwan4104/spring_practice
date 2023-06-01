@@ -5,7 +5,7 @@
 <html>
 	<head>
 	<meta charset="UTF-8">
-	<title>Insert title here</title>
+	<title>게시글 목록</title>
 	<meta charset="utf-8" />
 			<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 			<link rel="stylesheet" href="/resources/assets/css/main.css" />
@@ -67,7 +67,7 @@
 						<c:forEach var="board" items="${boardList}">
 							<tr class="tBody">
 								<td class="bno">${board.bno}</td>
-								<td class="title">${board.title}</a></td>
+								<td class="title"><a href="/board/detail/${board.bno}">${board.title}</a></td>
 								<td class="writer">${board.writer}</td>
 								<td class="regDate">${board.regDate}</td>
 								<td class="updateDate">${board.updateDate}</td>
