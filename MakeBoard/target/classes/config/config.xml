@@ -3,6 +3,7 @@
 <configuration>
 	<typeAliases>
 		<typeAlias type="com.real.makeBoard.vo.BoardVO" alias="boardVO"/>
+		<typeAlias type="com.real.makeBoard.vo.ReplyVO" alias="replyVO"/>
 		
 	</typeAliases>		
 </configuration>	
