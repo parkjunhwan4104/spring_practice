@@ -9,7 +9,7 @@
 
 </head>
 <body>
-		<h3><a href="/board/list" >목록 보기</a></h3>
+		<h3><a href="/board/list?currentPageNum=${criteria.currentPageNum}&type=${criteria.type}&keyword=${criteria.keyword}" >목록 보기</a></h3>
 		<div class="content">
 				<div class="form">
 						<div class="fields">
@@ -33,10 +33,10 @@
 				</div>
 				
 				<button class="submit">
-					<a href="/board/modify?bno=${boardVO.bno}">수정</a>
+					<a href="/board/modify?bno=${boardVO.bno}&currentPageNum=${criteria.currentPageNum}&type=${criteria.type}&keyword=${criteria.keyword}">수정</a>
 				</button>
 				<button class="submit">
-					<a href="/board/delete?bno=${boardVO.bno}">삭제</a>
+					<a href="/board/delete?bno=${boardVO.bno}&currentPageNum=${criteria.currentPageNum}&type=${criteria.type}&keyword=${criteria.keyword}">삭제</a>
 				</button>
 					
 				

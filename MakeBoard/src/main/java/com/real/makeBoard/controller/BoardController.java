@@ -1,5 +1,7 @@
 package com.real.makeBoard.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,26 +36,20 @@ public class BoardController {
 	}
 	
 	@GetMapping("/list")
-	public String showList(Criteria criteria,Model model) {
+	public void showList(Criteria criteria,Model model) {
 		
-		List<BoardVO> boardList=boardService.getList(criteria);
-		
-		PageDTO pageDTO=new PageDTO(criteria,boardService.getTotalNum());
+		List<BoardVO> boardList=boardService.getListByCriteria(criteria);
+
+		PageDTO pageDTO=new PageDTO(criteria,boardService.getTotalNum(criteria));
 		
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("pageDTO",pageDTO);
 		
-		System.out.println("-----------start:"+pageDTO.getStartPage());
-		System.out.println("-----------end:"+pageDTO.getEndPage());
-		
-		System.out.println("---cri-----"+criteria.getCurrentPageNum());
-		System.out.println("---cria-----"+criteria.getAmount());
-		
-		return "board/list";
 	}
 	
+	
 	@GetMapping("/detail/{bno}")
-	public String showDetail(@PathVariable("bno") Long bno,Model model) {
+	public String showDetail(Criteria criteria,@PathVariable("bno") Long bno,Model model) {
 		
 		BoardVO boardVO=boardService.getOne(bno);
 		
@@ -63,12 +59,13 @@ public class BoardController {
 		
 		model.addAttribute("boardVO", boardVO);
 		
+		
 		return "board/detail";
 	}
 	
 	
 	@GetMapping("/modify")
-	public String showModify(Long bno,Model model) {
+	public String showModify(Criteria criteria,Long bno,Model model) {
 		
 		BoardVO boardVO=boardService.getOne(bno);
 		
@@ -82,14 +79,17 @@ public class BoardController {
 	}
 	
 	@PostMapping("/modify")
-	public String doModify(BoardVO boardVO) {
+	public String doModify(Criteria criteria,BoardVO boardVO) throws UnsupportedEncodingException {
 		boardService.modify(boardVO);
+		System.out.println("-------------------------"+criteria.getType());
 		
-		return "redirect:/board/detail/"+boardVO.getBno();
+		
+		return "redirect:/board/detail/"+boardVO.getBno()+"?currentPageNum="+criteria.getCurrentPageNum()+"&type="+criteria.getType()+"&keyword="+URLEncoder.encode(criteria.getKeyword(), "UTF-8");
+		//redirect 시에 한글 꺠짐을 방지하기 위해 +URLEncoder.encode(criteria.getKeyword(), "UTF-8");을 해야함
 	}
 	
 	@GetMapping("/delete")
-	public String doDelete(Long bno) {
+	public String doDelete(Criteria criteria,Long bno) throws UnsupportedEncodingException {
 		
 		BoardVO boardVO=boardService.getOne(bno);
 		
@@ -99,7 +99,7 @@ public class BoardController {
 		
 		boardService.delete(bno);
 		
-		return "redirect:/board/list";
+		return "redirect:/board/list?currentPageNum="+criteria.getCurrentPageNum()+"&type="+criteria.getType()+"&keyword="+URLEncoder.encode(criteria.getKeyword(), "UTF-8");
 	}
 	
 	

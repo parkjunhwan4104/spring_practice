@@ -18,8 +18,9 @@ public interface BoardMapper {
 	
 	public BoardVO getOne(Long bno);
 	
-	public List<BoardVO> getList(Criteria criteria);
+	public List<BoardVO> getListByCriteria(Criteria criteria);
 	
-	public int getTotalNum();
+	public int getTotalNum(Criteria criteria);
+
 	
 }

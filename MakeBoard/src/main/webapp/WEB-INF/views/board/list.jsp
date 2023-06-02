@@ -67,7 +67,7 @@
 						<c:forEach var="board" items="${boardList}">
 							<tr class="tBody">
 								<td class="bno">${board.bno}</td>
-								<td class="title"><a href="/board/detail/${board.bno}">${board.title}</a></td>
+								<td class="title"><a href="/board/detail/${board.bno}?currentPageNum=${pageDTO.criteria.currentPageNum}&type=${criteria.type}&keyword=${criteria.keyword}">${board.title}</a></td>
 								<td class="writer">${board.writer}</td>
 								<td class="regDate">${board.regDate}</td>
 								<td class="updateDate">${board.updateDate}</td>
@@ -76,10 +76,33 @@
 					</tbody>
 					
 				</table>
+				 
+				<form action="/board/list" >
+					<div class="fields" >
+						<div class="field" style="text-align: center;">
+							<input type="hidden" name="currentPageNum" value="${pageDTO.criteria.currentPageNum}">	
+							<select name="type">
+								<option value="TCW" selected>전체</option>
+								<option value="T" >제목</option>
+								<option value="C" >내용</option>
+								<option value="W">작성자</option>
+								<option value="TW" >제목 또는 작성자</option>
+								<option value="TC" >제목 또는 내용</option>
+								
+							</select>
+							
+							<input type="text"	name="keyword" value="${pageDTO.criteria.keyword}" required>
+							
+							<button type="submit"  class="search button primary icon solid fa-search">검색</button>
+					    </div>
+					</div>
+				</form>
+				
+				
 				
 				<div style="text-align: center;" class="big-width">
 					<c:if test="${pageDTO.prev}">
-						<a href="/board/list?currentPageNum=${pageDTO.startPage -1}"><code>&lt;</code></a>
+						<a href="/board/list?currentPageNum=${pageDTO.startPage -1}&type=${criteria.type}&keyword=${criteria.keyword}"><code>&lt;</code></a>
 					</c:if>
 					<c:forEach var="num" begin="${pageDTO.startPage}" end="${pageDTO.endPage}"> <!-- jstl에서 1씩 증가 가능 but 1씩 감소는 불가능함 -->
 						<c:choose>
@@ -87,14 +110,14 @@
 								<code><c:out value="${num}"/></code>
 							</c:when>
 							<c:otherwise>
-								<a href="/board/list?currentPageNum=${num}"><code><c:out value="${num}"/></code></a>
+								<a href="/board/list?currentPageNum=${num}&type=${criteria.type}&keyword=${criteria.keyword}"><code><c:out value="${num}"/></code></a>
 							</c:otherwise>
 						</c:choose>
 						
 						
 					</c:forEach>
 					<c:if test="${pageDTO.next}">
-						<a href="/board/list?currentPageNum=${pageDTO.endPage+1}"><code>&gt;</code></a>
+						<a href="/board/list?currentPageNum=${pageDTO.endPage+1}&type=${criteria.type}&keyword=${criteria.keyword}"><code>&gt;</code></a>
 					</c:if>
 				</div>
 						

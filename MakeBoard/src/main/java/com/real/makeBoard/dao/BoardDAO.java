@@ -1,6 +1,6 @@
 package com.real.makeBoard.dao;
 
-import java.util.List;
+import java.util.List; 
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -34,13 +34,14 @@ public class BoardDAO {
 	}
 	
 	
-	public List<BoardVO> getList(Criteria criteria){
-			return boardMapper.getList(criteria);
+	public List<BoardVO> getListByCriteria(Criteria criteria){
+			return boardMapper.getListByCriteria(criteria);
 	}
 	
-	public int getTotalNum() {
-		return boardMapper.getTotalNum();
+	public int getTotalNum(Criteria criteria) {
+		return boardMapper.getTotalNum(criteria);
 	}
+	
 	
 
 }

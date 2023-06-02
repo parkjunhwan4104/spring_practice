@@ -34,12 +34,15 @@ public class BoardService {
 	}
 	
 	
-	public List<BoardVO> getList(Criteria criteria){
-		return boardDAO.getList(criteria);
+	public List<BoardVO> getListByCriteria(Criteria criteria){
+		return boardDAO.getListByCriteria(criteria);
 	}
 	
-	public int getTotalNum() {
-		return boardDAO.getTotalNum();
+	public int getTotalNum(Criteria criteria) {
+		return boardDAO.getTotalNum(criteria);
 	}
+	
+	
+	
 	
 }

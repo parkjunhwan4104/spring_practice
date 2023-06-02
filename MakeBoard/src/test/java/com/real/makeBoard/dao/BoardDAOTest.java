@@ -26,11 +26,12 @@ public class BoardDAOTest {
 	}
 	*/
 	
-	/*
+	
+	
 	@Test
 	public void getListByCriteria() {
-		boardDAO.getList(new Criteria()).forEach(log::info);
+		boardDAO.getListByCriteria(new Criteria(8,8,"트","TW")).forEach(log::info);
 	}
-	*/
+	
 
 }
