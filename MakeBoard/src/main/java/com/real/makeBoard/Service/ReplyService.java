@@ -14,12 +14,12 @@ public class ReplyService {
 	@Autowired
 	private ReplyDAO replyDAO;
 	
-	public void insert(ReplyVO replyVO) {
-		replyDAO.insert(replyVO);
+	public boolean insert(ReplyVO replyVO) {
+		return replyDAO.insert(replyVO);
 	}
 	
-	public void delete(Long rno) {
-		replyDAO.delete(rno);
+	public boolean delete(Long rno) {
+		return replyDAO.delete(rno);
 	}
 	
 	public List<ReplyVO> getListByBNO(Long bno) {
@@ -27,8 +27,8 @@ public class ReplyService {
 		return replyDAO.getListByBNO(bno);
 	}
 	
-	public void modify(ReplyVO replyVO) {
-		replyDAO.modify(replyVO);
+	public boolean modify(ReplyVO replyVO) {
+		return replyDAO.modify(replyVO);
 	}
 	
 	public ReplyVO getReplyByRno(Long rno) {

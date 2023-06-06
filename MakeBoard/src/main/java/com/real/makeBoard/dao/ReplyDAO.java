@@ -14,14 +14,14 @@ public class ReplyDAO {
 	@Autowired
 	private ReplyMapper replyMapper;
 	
-	public void insert(ReplyVO replyVO) {
-		replyMapper.insert(replyVO);
+	public boolean insert(ReplyVO replyVO) {
+		return replyMapper.insert(replyVO)==1;
 		
 	}
 	
 	
-	public void delete(Long rno) {
-		replyMapper.delete(rno);
+	public boolean delete(Long rno) {
+		return replyMapper.delete(rno)==1;
 	}
 	
 	public List<ReplyVO> getListByBNO(Long bno) {
@@ -29,8 +29,8 @@ public class ReplyDAO {
 		return replyMapper.getListByBNO(bno);
 	}
 	
-	public void modify(ReplyVO replyVO) {
-		replyMapper.modify(replyVO);
+	public boolean modify(ReplyVO replyVO) {
+		return replyMapper.modify(replyVO)==1;
 	}
 	
 	public ReplyVO getReplyByRno(Long rno) {

@@ -10,13 +10,13 @@ import com.real.makeBoard.vo.ReplyVO;
 @Mapper
 public interface ReplyMapper {
 	
-	public void insert(ReplyVO replyVO);
+	public int insert(ReplyVO replyVO);
 	
-	public void delete(Long rno);
+	public int delete(Long rno);
 	
 	public List<ReplyVO> getListByBNO(Long bno);
 	
-	public void modify(ReplyVO replyVO);
+	public int modify(ReplyVO replyVO);
 	
 	public ReplyVO getReplyByRno(Long rno);
 	
