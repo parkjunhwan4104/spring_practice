@@ -61,12 +61,41 @@
 		}
 	
 	}
+	
+	
+	function modify(reply,callback){
+		$.ajax({
+			url:"/reply/"+reply.rno,
+			type: "post",
+			data: JSON.stringify(reply),
+			contentType:"application/json; charset:utf-8",
+			success: function(result){
+				if(callback){
+					callback(result);
+				}
+			}
+		
+		
+		});	
+	}
+	
+	function remove(rno,callback){
+		$.ajax({
+			url:"/reply/"+rno,
+			type: "delete",
+			success: function(result){
+				if(callback){
+					callback(result);
+				}
+			}
+		});
+	}
  	
  	
  	
  
  
- 	return {add:add,getList: getList, displayTime: displayTime};
+ 	return {add:add,getList: getList, displayTime: displayTime, modify:modify, remove:remove};
  
  
  })();

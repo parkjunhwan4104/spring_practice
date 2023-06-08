@@ -13,6 +13,7 @@
 	
 	<select id="getListByBNO" resultType="replyVO">
 		SELECT * FROM REPLY WHERE BNO=#{bno}
+		ORDER BY RNO DESC
 	</select>
 	
 	<update id="modify">

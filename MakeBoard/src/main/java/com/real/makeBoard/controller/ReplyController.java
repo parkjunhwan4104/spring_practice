@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.http.HttpStatus; 
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -44,6 +45,20 @@ public class ReplyController {
 		return new ResponseEntity<>(ReplyList,HttpStatus.OK);
 		
 	}
+	
+	@PostMapping(value="/{rno}", consumes="application/json",produces=MediaType.TEXT_PLAIN_VALUE)
+	public String doModify(@PathVariable("rno")Long rno,@RequestBody ReplyVO replyVO) {
+		
+		return replyService.modify(replyVO)?"success":"fail";
+	}
+	
+	@DeleteMapping(value="/{rno}")
+	public void remove(@PathVariable("rno")Long rno) {
+		
+		replyService.delete(rno);
+	}
+	
+	
 	
 	
 }

@@ -102,11 +102,12 @@
 		
 		let bno="${boardVO.bno}";
 		
+		let checkDupleWrite=false;
+		
 		showList();
 		
 		function showList(){
-			
-			console.log("asdasda");
+		
 			replyService.getList({
 				bno: bno
 			
@@ -124,7 +125,7 @@
 					str+=`<div style="display:flex; justify-content:space-between" >`;
 					str+=`<strong style="display:block;">`+result[i].writer +`</strong>`;
 					str+=`<div>`;
-					str+=`<a href=`+result[i].rno+` class="modify-ready">수정</a>`;
+					str+=`<a href=`+result[i].rno+` class="modify-do">수정</a>`;
 					str+=`<a href=`+result[i].rno+` class="modify-finish" style="display:none">수정완료</a>`;
 					str+=`&nbsp;&nbsp;&nbsp;&nbsp;<a href=`+result[i].rno+` class="remove">삭제</a>`;
 					str+=`</div>`;
@@ -133,6 +134,7 @@
 					str+=`<strong style="display:block; text-align: right">`+(timeCheck?"":"*")+replyService.displayTime(date)+`</strong>`;
 					str+=`<div class="line"></div>`;
 					str+=`</li>`;
+					str+=`<br>`;
 				}
 				repliesUL.html(str);
 			
@@ -150,6 +152,8 @@
 			},function(){
 				$("textarea[name='replyContent']").val("");
 				$("input[name='writer']").val("");
+				$("div.register-form").hide();
+				$("a.register").show();
 				showList();
 			});
 		});
@@ -165,6 +169,86 @@
 			$("div.register-form").hide();
 			$("a.register").show();
 		})
+		
+		
+		$("ul.replies").on("click","a.modify-do",function(e){
+			e.preventDefault();
+			
+			if(checkDupleWrite){
+				alert("이미 수정중인 댓글이 있습니다.");
+				return;
+			}
+			let rno=$(this).attr("href");
+			let finish=$("a.modify-finish");
+			
+			const p=$("li#"+rno).find("p."+rno);
+			
+			const remove=$("a.remove");
+			
+			$(this).hide();
+			
+			for(let i=0;i<finish.length;i++){
+				
+				if(finish[i].getAttribute("href")==rno){
+					$(finish[i]).show();
+					$(remove[i]).attr("class","modify-cancel");
+					$(remove[i]).text("취소");
+					
+					break;
+				}		
+			}
+			
+			p.html("<textarea class="+rno+" style='resize:none;'>"+p.text()+"</textarea>")
+			checkDupleWrite=true;
+		});
+		
+		
+		$("ul.replies").on("click","a.modify-finish",function(e){
+			e.preventDefault();
+			let rno=$(this).attr("href");
+			const p=$("li#"+rno).find("p."+rno);
+			
+			replyService.modify({
+				replyContent:$("textarea."+rno).val(),
+				rno: rno
+			},function(){
+				
+				p.html($("textarea."+rno).val());
+				$(this).hide();
+				$(this).prev().show();
+				showList();
+				
+				checkDupleWrite=true;
+			});
+						
+		});
+		
+		$("ul.replies").on("click","a.modify-cancel",function(e){
+			e.preventDefault();
+			let rno=$(this).attr("href");
+			const p=$("li#"+rno).find("p."+rno);
+			
+			p.html($("textarea."+rno).text());
+			
+			$(this).attr("class","remove");
+			$(this).attr("삭제");
+			
+			$(this).prev().hide();
+			$(this).prev().prev().show();
+			checkDupleWrite=false;
+		});
+		
+		$("ul.replies").on("click","a.remove",function(e){
+			e.preventDefault();
+			
+			if(confirm("정말 삭제하시겠습니까?")){
+				
+				replyService.remove($(this).attr("href"),function(){
+					showList();
+				});
+			}
+			
+		});
 	
 	
 	</script>
